@@ -1,0 +1,2 @@
+E:\Code\Visual Studio\dsatest\Debug\dsatest.exe
+E:\Code\Visual Studio\dsatest\Debug\dsatest.pdb

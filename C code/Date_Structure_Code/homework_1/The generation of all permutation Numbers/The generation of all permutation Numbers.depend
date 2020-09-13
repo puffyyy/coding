@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1582445827 source:e:\code\c code\the generation of all permutation numbers\untitled1.c
+	<stdio.h>
+	<string.h>
+
+1582455969 source:e:\code\c code\the generation of all permutation numbers\main.c
+	<stdio.h>
+	<stdlib.h>
+

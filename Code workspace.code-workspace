@@ -1,0 +1,64 @@
+{
+	"folders": [
+		{
+			"name": "C++ code",
+			"path": "C++ code"
+		},
+		{
+			"name": "C code",
+			"path": "C code"
+		},
+		{
+			"name": "python code",
+			"path": "python code"
+		},
+		{
+			"path": "web code"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"stdio.h": "c",
+			"*.tcc": "c",
+			"cctype": "c",
+			"regex": "c",
+			"random": "c",
+			"type_traits": "cpp",
+			"Boyer-Moore.C": "cpp",
+			"Boyer_Moore.C": "cpp",
+			"sstream": "c",
+			"iostream": "cpp",
+			"istream": "cpp",
+			"charconv": "c",
+			"chrono": "c",
+			"complex": "c",
+			"locale": "c",
+			"numeric": "c",
+			"valarray": "c",
+			"functional": "c",
+			"ios": "c",
+			"xiosbase": "c",
+			"xlocale": "c",
+			"queue": "cpp",
+			"math.h": "c",
+			"algorithm": "c",
+			"array": "c",
+			"bitset": "c",
+			"iterator": "c",
+			"tuple": "c",
+			"utility": "c",
+			"mutex": "c",
+			"typeindex": "c",
+			"atomic": "cpp",
+			"cstring": "cpp",
+			"filesystem": "cpp",
+			"xlocbuf": "cpp",
+			"xlocinfo": "cpp",
+			"xlocmon": "cpp",
+			"xstring": "cpp",
+			"xutility": "cpp"
+		},
+		"python.pythonPath": "c:\\Users\\LK01\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+		"liveServer.settings.multiRootWorkspaceName": "web code"
+	}
+}

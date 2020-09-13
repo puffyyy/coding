@@ -1,0 +1,6 @@
+﻿  ds.c
+E:\Code\Visual Studio\dsatest\ds.c(7,1): warning C4005: “max”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\stdlib.h(1289): message : 参见“max”的前一个定义
+E:\Code\Visual Studio\dsatest\ds.c(8,1): warning C4005: “min”: 宏重定义
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\stdlib.h(1290): message : 参见“min”的前一个定义
+  dsatest.vcxproj -> E:\Code\Visual Studio\dsatest\Debug\dsatest.exe
