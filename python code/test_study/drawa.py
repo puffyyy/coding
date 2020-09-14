@@ -82,6 +82,6 @@ Tree(60, t)
 # 掉落的花瓣
 Petal(200, t)
 # name
-Name("I like the dreams of the future better than the history of the past.",
-     "xxx")
+# I like the dreams of the future better than the history of the past.
+Name("xxx", "xxx")
 w.exitonclick()

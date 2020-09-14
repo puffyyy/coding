@@ -1,7 +1,7 @@
 #include <stdio.h>
 #define MAXSIZE 200002
 int visit[MAXSIZE];
-long long tr[MAXSIZE];
+int tr[MAXSIZE];
 void init(int n)
 {
     for (int i = 0; i < n; i++)
@@ -27,10 +27,7 @@ int find(int x)
 }
 void union_(int a, int b)
 {
-    int r1 = find(a), r2 = find(b);
-    if (r1 == r2)
-        return; //已经在一个集合里了
-    tr[r1] = r2;
+    tr[a] = b;
 }
 int main()
 {
@@ -45,13 +42,17 @@ int main()
         for (int j = a; j <= b; j++)
         {
             if (visit[j] == 1)
+            {
+                int tmp = j;
                 j = find(j);
+                union_(tmp, b);
+            }
             else
             {
                 visit[j] = 1;
+                union_(j, b);
                 ans--;
             }
-            union_(j, b);
         }
         printf("%d\n", ans);
     }

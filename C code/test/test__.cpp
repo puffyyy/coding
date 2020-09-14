@@ -27,6 +27,9 @@ int main(void)
         next[prev[x]] = next[x];
         prev[next[x]] = prev[x]; //删除该节点x,位置i前的数字未出现x
     }
+    for (int i = 1; i <= n; i++)
+
+        printf("%d: [u]%d |[v]%d\n", i, u[i], v[i]);
 
     long long sum = 0;
     for (int i = 1; i <= n; ++i)
