@@ -7,8 +7,8 @@ struct edge
     int id, start, end, weight;
 } edges[MAXEDGE];
 int idpath[MAXVER];
-int parent[MAXVER]; //并查集根节点
-int cmp(const void *a, const void *b)
+int parent[MAXVER];                   //并查集根节点
+int cmp(const void *a, const void *b) //升序
 {
     struct edge *c = (struct edge *)a;
     struct edge *d = (struct edge *)b;
@@ -47,10 +47,10 @@ void unionUF(int R1, int R2)
     int r1 = findUF(R1),
         r2 = findUF(R2);               //r1 为 R1 的根结点，r2 为 R2 的根结点
     int tmp = parent[r1] + parent[r2]; //两个集合结点个数之和(负数)
-    //如果 R2 所在树结点个数 > R1 所在树结点个数(注意 parent[r1]是负数)
+    //如果 R2 所在树结点个数 > R1 所在树结点个数(注意 parent[root]是负数)
     if (parent[r1] > parent[r2]) //优化方案――加权法则
     {
-        parent[r1] = r2;
+        parent[r1] = r2; //r1的根 为 r2
         parent[r2] = tmp;
     }
     else
@@ -69,7 +69,7 @@ void kruskal(int numver, int numedges)
     for (int i = 0; i < numedges; i++)
     {
         u = edges[i].start, v = edges[i].end;
-        if (findUF(u) != findUF(v))
+        if (findUF(u) != findUF(v)) //两个点不在一个集合里则无回路
         {
             idpath[num] = edges[i].id;
             printf("%d %d %d %d\n", edges[i].id, u, v, edges[i].weight);

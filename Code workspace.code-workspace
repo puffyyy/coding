@@ -62,7 +62,8 @@
 			"xlocinfo": "cpp",
 			"xlocmon": "cpp",
 			"xstring": "cpp",
-			"xutility": "cpp"
+			"xutility": "cpp",
+			"cstdlib": "c"
 		},
 		"python.pythonPath": "c:\\Users\\LK01\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
 		"liveServer.settings.multiRootWorkspaceName": "web code"
