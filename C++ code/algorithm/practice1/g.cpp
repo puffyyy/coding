@@ -87,13 +87,22 @@ string solve(string str, int n)
             char ex[3];
             sprintf(ex, "%d", not_zeropos);
             string exstr(ex, strlen(ex));
+
             if (n <= s_dot.length() - not_zeropos)
-                str = "0." + s_dot.substr(not_zeropos, n) + "*10^-" + exstr;
+            {
+                if (exstr != "0")
+                    str = "0." + s_dot.substr(not_zeropos, n) + "*10^-" + exstr;
+                else if (exstr == "0")
+                    str = "0." + s_dot.substr(not_zeropos, n) + "*10^" + exstr;
+            }
             else
             {
                 string zero_tail;
                 zero_tail.assign(n - s_dot.length() + not_zeropos, '0');
-                str = "0." + s_dot.substr(not_zeropos, n) + zero_tail + "*10^-" + exstr;
+                if (exstr != "0")
+                    str = "0." + s_dot.substr(not_zeropos, n) + zero_tail + "*10^-" + exstr;
+                else
+                    str = "0." + s_dot.substr(not_zeropos, n) + zero_tail + "*10^" + exstr;
             }
         }
         else //123.456
@@ -127,5 +136,6 @@ int main()
         cout << "YES " << s;
     else
         cout << "NO " << s << " " << c;
+
     return 0;
 }

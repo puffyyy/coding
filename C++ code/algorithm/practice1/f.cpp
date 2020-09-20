@@ -18,7 +18,7 @@ int main()
         for (int i = 0; i < n; ++i)
         {
             scanf("%d", &tmp);
-            while (tmp % 2 == 0)
+            while (tmp && tmp % 2 == 0)
             {
                 cnt++;
                 tmp /= 2;
