@@ -8,8 +8,6 @@
 #include <stack>
 #include <queue>
 using namespace std;
-
-const int MAXSIZE = 1e5;
 int n;
 
 string deleteZero(string str) //除去前导0 后导0
@@ -48,7 +46,6 @@ int split(string str, string &s_int, string &s_dot)
     }
     return dot_pos;
 }
-
 string solve(string str, int n)
 {
     str = deleteZero(str);
@@ -62,9 +59,8 @@ string solve(string str, int n)
         return str;
     }
 
-    if (s_dot.empty())
+    if (s_dot.empty()) //整数 123
     {
-        //整数 123
         char ex[3];
         sprintf(ex, "%d", s_int.length());
         string exstr(ex, strlen(ex));
@@ -79,8 +75,6 @@ string solve(string str, int n)
     }
     else
     {
-        //123.456 0.01234
-        // s_dot = s_int + s_dot;
         if (s_int == "0") //0.01234
         {
             int not_zeropos = s_dot.find_first_not_of("0");
