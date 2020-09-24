@@ -21,6 +21,25 @@
 			"#include <queue>",
 			"#include <set>",
 			"using namespace std;",
+			"typedef long long int ll;",
+			"",
+			"",
+			"int main()",
+			"{",
+			"	$2",
+			"	return 0;",
+			"}",
+		],
+		"description": "Log output to console"
+	},
+	"ccc_template": {
+		"scope": "c,c++,cpp",
+		"prefix": "ccc",
+		"body": [
+			"#include <stdio.h>",
+			"#include <string.h>",
+			"#include <math.h>",
+			"#include <stdlib.h>",
 			"",
 			"",
 			"int main()",
@@ -31,4 +50,5 @@
 		],
 		"description": "Log output to console"
 	}
+
 }
