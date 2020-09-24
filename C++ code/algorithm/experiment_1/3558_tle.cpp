@@ -35,9 +35,9 @@ int main()
             {
                 min = a[l] > b[r] + 1 ? b[r] + 1 : a[l];
                 ans += min - i;
-                // printf("%d->", i);
+                printf("%d->", i);
                 i = i > min - 1 ? i : min - 1;
-                // printf("%d\n", i);
+                printf("%d\n", i);
             }
         }
         printf("%d\n", ans);
