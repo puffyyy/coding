@@ -27,7 +27,7 @@ long long merge(int a[], int ll, int mid, int rr)
         else
         {
             a[pos] = temp[j++];
-            cnt += mid - i + 1;
+            cnt += mid - i + 1; //左侧区间对右侧 j 位置形成的逆序对
         }
     }
     if (i <= mid)
