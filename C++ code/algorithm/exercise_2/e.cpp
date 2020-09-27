@@ -28,7 +28,7 @@ int main()
             cout << maxm[tmp];
         else
         {
-        }
+                }
     }
 
     return 0;
