@@ -4,15 +4,9 @@
 #include <cmath>
 #include <cstdlib>
 #include <algorithm>
-#include <vector>
-#include <stack>
-#include <queue>
-#include <set>
 using namespace std;
-typedef long long int ll;
 const int MS = 1e5 + 5;
 int a[MS], b[MS];
-// int flag[MS];
 int main()
 {
 
@@ -20,13 +14,13 @@ int main()
     cin >> n >> m;
     for (int i = 1; i <= n; ++i)
     {
-        cin >> a[i];
+        scanf("%d", &a[i]);
     }
     int l, r, flag;
     while (m--)
     {
         flag = 0;
-        cin >> l >> r;
+        scanf("%d%d", &l, &r);
         if (r - l >= 48)
         {
             printf("Yes\n");
