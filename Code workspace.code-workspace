@@ -65,7 +65,8 @@
 			"xutility": "cpp",
 			"cstdlib": "c",
 			"vector": "cpp",
-			"ostream": "cpp"
+			"ostream": "cpp",
+			"iosfwd": "cpp"
 		},
 		"python.pythonPath": "c:\\Users\\LK01\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
 		"liveServer.settings.multiRootWorkspaceName": "web code"

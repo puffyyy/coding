@@ -4,7 +4,7 @@
 #include <iostream>
 #include <cstring>
 using namespace std;
-const int N = 1e3 + 5;
+const int N = 1e5 + 5;
 const int inf = 0x3f3f3f3f;
 struct Node
 {
@@ -64,15 +64,16 @@ void cdq(int L, int R)
     int j = mid + 1;
     for (int i = L; i <= mid; ++i)
     {
-        while (j <= R && node[j].y < node[i].y) // j 在 i 前面出现
+        while (j <= R && node[j].y < node[i].y) // j 在 i 前面出现 i在j后面出现 寻找比 node[i].z 大的
         {
             bit.update(node[j].z, 1);
             ++j;
         }
-        node[i].cnt += bit.getsum(n) - bit.getsum(node[i].z); //node[i].z值 后面 到 n 的逆序对 //对后面的影响
-        // 假设 i 对 j 产生了逆序 那么因为 j>i 当 i+1 时 同样会加上 i+1 对 j 产生的逆序对
+        node[i].cnt += bit.getsum(n) - bit.getsum(node[i].z); //node[i].z值 后面 到 n 的逆序对 比node[i].z大的有多少
+        //位置出现在 i 前面 比node[i].z大的
+        //因为 j<i 当 i+1 时 之前的 j 还会小于 i+1
     }
-    while (--j >= mid + 1) //撤回影响
+    while (--j >= mid + 1) //撤回影响 每个 j 都被加了一遍
     {
         bit.update(node[j].z, -1);
     }
@@ -80,7 +81,7 @@ void cdq(int L, int R)
     j = R;
     for (int i = mid; i >= L; --i)
     {
-        while (j >= mid + 1 && node[j].y > node[i].y)
+        while (j >= mid + 1 && node[j].y > node[i].y) // j 在 i 后面出现 i在j前面出现 寻找比 node[i].z 小的
         {
             bit.update(node[j].z, 1);
             --j;
@@ -118,6 +119,7 @@ int main()
     这样我们需要检测的是时间在它后面但是值比它小的数有多少
     很显然这是一个前缀和sum(a[i]-1)
     */
+
     long long ans = 0;
     for (int i = n; i >= 1; --i)
     {
