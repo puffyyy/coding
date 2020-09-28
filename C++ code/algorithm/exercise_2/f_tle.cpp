@@ -21,27 +21,17 @@ int main()
         high[m] = 1;
         while (k--)
         {
-            while (true)
-            {
-                if (high[max_] != 0)
-                    break;
-                --max_;
-            }
             --high[max_];
             l = int(1.0 * a / b * max_);
             r = max_ - l;
             ++high[l];
             ++high[r];
+            while (!high[max_])
+                --max_;
         }
-        while (true)
-        {
-            if (high[max_] != 0)
-                break;
-            --max_;
-        }
-        printf("%d\n", max_);
-        memset(high, 0, sizeof(int) * max_);
-    }
 
+        printf("%d\n", max_);
+        memset(high, 0, sizeof(int) * (max_ + 2));
+    }
     return 0;
 }

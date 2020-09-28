@@ -60,6 +60,20 @@ inline void write(int x)
 	while (top)
 		putchar(sta[--top] + '0');
 }
+int read()
+{
+	int p = 0, f = 1;
+	char c = getchar();
+	while (c < 48 || c > 57)
+	{
+		if (c == '-')
+			f = -1;
+		c = getchar();
+	} //过滤无效字符,同时检查有没有负号
+	while (c >= 48 && c <= 57)
+		p = (p << 1) + (p << 3) + c - 48, c = getchar(); //开始读入整数
+	return p * f;
+}
 int main()
 {
 

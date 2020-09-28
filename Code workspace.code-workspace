@@ -67,7 +67,8 @@
 			"vector": "cpp",
 			"ostream": "cpp",
 			"iosfwd": "cpp",
-			"limits": "cpp"
+			"limits": "cpp",
+			"stack": "cpp"
 		},
 		"python.pythonPath": "c:\\Users\\LK01\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
 		"liveServer.settings.multiRootWorkspaceName": "web code"
