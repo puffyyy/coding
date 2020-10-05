@@ -73,11 +73,11 @@ int main()
 {
     ios::sync_with_stdio(false);
 
-    cin >> n;
+    scanf("%d", &n);
     Star *stars = new Star[n + 1];
     for (int i = 1; i <= n; ++i)
     {
-        cin >> stars[i].val >> stars[i].dis;
+        scanf("%lf%lf", &stars[i].val, &stars[i].dis);
     }
     sort(stars + 1, stars + 1 + n, cmpdis);
     for (int i = 1; i <= n; ++i)
@@ -87,7 +87,7 @@ int main()
     double sum_to_i = 0;
     for (int i = 1; i <= n; ++i)
     {
-        int lcnt = getcnt(stars[i].pos);
+        int lcnt = getcnt(stars[i].pos);               // 或(stars[i].pos - 1) 下同
         double lsum = getsum(stars[i].pos);            // 在i左侧的离原点坐标和
         double lsum_to_i = lcnt * stars[i].dis - lsum; // 在i左侧的离当前点i 的距离和
         double rsum_to_i = sum_to_i - lsum - (i - 1 - lcnt) * stars[i].dis;
@@ -100,3 +100,11 @@ int main()
     printf("%.3lf", ans);
     return 0;
 }
+/*
+4
+3 1
+2 5
+2 6
+4 3
+
+*/
