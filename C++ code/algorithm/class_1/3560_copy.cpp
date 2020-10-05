@@ -111,6 +111,7 @@ int main()
     }
 
     sort(node + 1, node + n + 1, rule_xyz);
+    //先按 x 删除顺序 排序后，分治过程中就可以忽略 删除顺序 的影响
     cdq(1, n);
 
     /*

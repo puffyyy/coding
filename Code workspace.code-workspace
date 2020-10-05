@@ -68,7 +68,22 @@
 			"ostream": "cpp",
 			"iosfwd": "cpp",
 			"limits": "cpp",
-			"stack": "cpp"
+			"stack": "cpp",
+			"cmath": "cpp",
+			"deque": "cpp",
+			"forward_list": "cpp",
+			"future": "cpp",
+			"list": "cpp",
+			"memory": "cpp",
+			"optional": "cpp",
+			"system_error": "cpp",
+			"unordered_map": "cpp",
+			"xhash": "cpp",
+			"xmemory": "cpp",
+			"xtree": "cpp",
+			"string": "cpp",
+			"string_view": "cpp",
+			"fstream": "cpp"
 		},
 		"python.pythonPath": "c:\\Users\\LK01\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
 		"liveServer.settings.multiRootWorkspaceName": "web code"
