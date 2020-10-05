@@ -15,13 +15,12 @@ char rlist[] = ")]}";
 map<char, int> mm;
 stack<char> st;
 void init()
-{
     mm['('] = 1;
-    mm[')'] = 2;
-    mm['['] = 3;
-    mm[']'] = 4;
-    mm['{'] = 5;
-    mm['}'] = 6;
+mm[')'] = 2;
+mm['['] = 3;
+mm[']'] = 4;
+mm['{'] = 5;
+mm['}'] = 6;
 }
 void makebracket(int len, int k, string &bra)
 {
