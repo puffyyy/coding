@@ -15,18 +15,20 @@ char rlist[] = ")]}";
 map<char, int> mm;
 stack<char> st;
 void init()
+{
     mm['('] = 1;
-mm[')'] = 2;
-mm['['] = 3;
-mm[']'] = 4;
-mm['{'] = 5;
-mm['}'] = 6;
+    mm[')'] = 2;
+    mm['['] = 3;
+    mm[']'] = 4;
+    mm['{'] = 5;
+    mm['}'] = 6;
 }
 void makebracket(int len, int k, string &bra)
 {
     if (len == 0)
     {
-        cout << bra << endl;
+        // cout << bra << endl;
+        printf("%s\n", bra.c_str());
         return;
     }
     else
@@ -59,18 +61,16 @@ void makebracket(int len, int k, string &bra)
 }
 int main()
 {
-    ios::sync_with_stdio(false);
     int t;
-    cin >> t;
+    scanf("%d", &t);
     init();
     while (t--)
     {
         int n, k;
         cin >> n >> k;
         string ans;
-
         makebracket(2 * n, k, ans);
-        cout << endl;
+        putchar('\n');
     }
     return 0;
 }
