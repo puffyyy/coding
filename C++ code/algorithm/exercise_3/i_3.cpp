@@ -85,7 +85,6 @@ int main()
     sort(stars + 1, stars + 1 + n, cmpdis);
 
     double ans = 0;
-    double sum_to_i = 0;
     int cnt;
     double sum;
     //寻找比 i 小(距离比i小的中)的 val 计算

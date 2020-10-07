@@ -7,7 +7,7 @@
 	// Placeholders with the same ids are connected.
 	// Example:
 	"cpp_template": {
-		"scope": "cpp,c++",
+		"scope": "c++",
 		"prefix": "cpp",
 		"body": [
 			"#include <iostream>",
@@ -22,6 +22,7 @@
 			"#include <set>",
 			"using namespace std;",
 			"typedef long long int ll;",
+			"const int MS = 1e5+5;"
 			"",
 			"",
 			"int main()",
@@ -34,7 +35,7 @@
 		"description": "Log output to console"
 	},
 	"ccc_template": {
-		"scope": "c,c++,cpp",
+		"scope": "c,c++",
 		"prefix": "ccc",
 		"body": [
 			"#include <stdio.h>",
