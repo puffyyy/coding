@@ -83,7 +83,8 @@
 			"xtree": "cpp",
 			"string": "cpp",
 			"string_view": "cpp",
-			"fstream": "cpp"
+			"fstream": "cpp",
+			"cstdio": "cpp"
 		},
 		"python.pythonPath": "c:\\Users\\LK01\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
 		"liveServer.settings.multiRootWorkspaceName": "web code"
