@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <cstdio>
 #include <cstring>
@@ -6,32 +5,41 @@
 #include <cstdlib>
 #include <algorithm>
 #include <vector>
-#include <list>
 #include <stack>
 #include <queue>
 #include <set>
 using namespace std;
 typedef long long int ll;
 const int MS = 1e5 + 5;
-template <typename IteratorType, typename elempType>
-IteratorType findi(IteratorType first, IteratorType last, const elempType &value)
+int mat[81][81];
+__int128 dp[81][81];
+inline void output(__int128 x)
 {
-    for (; first != last; ++first)
-        if (value == *first)
-            return first;
-    return last;
+    if (x > 9)
+        output(x / 10);
+    putchar(x % 10 + '0');
 }
 int main()
 {
-    //ios::sync_with_stdio(false);
-    int a[8] = {1, 1, 2, 3, 5, 8, 13, 21};
-    vector<int> vec(a, a + 8);
-    list<int> li(a, a + 8);
-    list<int>::iterator pos;
-    list<int>::iterator li_end = li.end();
-    cout << findi(a, a + 8, 1024) - a << endl;
-    cout << findi(vec.begin(), vec.end(), 1024) - vec.begin() << endl;
-    pos = findi(li.begin(), li.end(), 1024);
-    find_if(li.begin(), li.end(), [] {});
+    ios::sync_with_stdio(false);
+    int n, m;
+    cin >> n >> m;
+    __int128 ans = 0;
+    for (int i = 1; i <= n; ++i)
+    {
+        for (int j = 1; j <= m; ++j)
+            cin >> mat[i][j];
+    }
+    for (int i = 1; i <= n; ++i)
+    {
+        memset(dp, 0, sizeof(dp));
+        for (int len = 0; len <= m; len++)
+            for (int j = 1; j <= m - len; j++)
+            {
+                dp[j][j + len] = 2 * max(dp[j + 1][j + len] + mat[i][j], dp[j][j + len - 1] + mat[i][j + len]);
+            }
+        ans += dp[1][m];
+    }
+    output(ans);
     return 0;
 }

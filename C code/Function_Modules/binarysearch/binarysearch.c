@@ -47,6 +47,55 @@ int binarysearchleftcnt(int x, int len) //小于x的个数 要求升序 下标�
     }
     return l;
 }
+int *c_lowerbound(int *begin, int *end, int target)
+{
+    if (end - begin == 0)
+        return end;
+    int *left, *mid, *right;
+    left = begin, right = end;
+    while (left < right) //终止条件是 left == right 左闭右开
+    {
+        mid = left + (right - left) / 2;
+        if (*mid == target)
+        {
+            right = mid;
+        }
+        else if (*mid < target)
+        {
+            left = mid + 1;
+        }
+        else if (*mid > target)
+        {
+            right = mid;
+        }
+    }
+    return left; // 或 right
+}
+int *c_upperbound(int *begin, int *end, int target)
+{
+    if (end - begin == 0)
+        return end;
+    int *left, *mid, *right;
+    left = begin, right = end;
+    while (left < right) //终止条件是 left == right 左闭右开
+    {
+        mid = left + (right - left) / 2;
+        if (*mid == target)
+        {
+            left = mid + 1; // 注意
+        }
+        else if (*mid < target)
+        {
+            left = mid + 1;
+        }
+        else if (*mid > target)
+        {
+            right = mid;
+        }
+    }
+    return left; // 或 right
+    // *left 时第一个大于target的元素  *(left-1) 可能是target
+}
 int main()
 {
     int n, i, t;
