@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <cstring>
 using namespace std;
-int a[55];
+int a;
 bool dp[1001];
 int main()
 {
@@ -10,19 +10,17 @@ int main()
     while (t--)
     {
         scanf("%d", &n);
-        for (int i = 1; i <= n; i++)
-            scanf("%d", a + i);
         memset(dp, 0, sizeof(dp));
         dp[0] = 1;
         for (int i = 1; i <= n; i++)
         {
-            for (int j = 1000; j >= a[i]; j--)
-                dp[j] = dp[j] | dp[j - a[i]];
+            scanf("%d", &a);
+            for (int j = 1000; j >= a; j--)
+                dp[j] = dp[j] | dp[j - a];
         }
         int cnt = 0;
         for (int j = 1; j <= 1000; j++)
-            if (dp[j])
-                cnt++;
+            cnt += dp[j];
 
         printf("%d\n", cnt);
     }
