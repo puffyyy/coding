@@ -4,44 +4,57 @@
 #include <cmath>
 #include <cstdlib>
 #include <algorithm>
-#include <vector>
-#include <stack>
-#include <queue>
-#include <set>
 using namespace std;
 typedef long long int ll;
-const int MS = 5e5 + 5;
+const int MS = 1e5 + 5;
 char str[MS << 1];
 int sa[MS];
 int rk[MS << 1];
 int oldrk[MS << 1];
-int w;
+int id[MS], cnt[MS];
 void calSA(char str[], int len)
 {
-    int i, p, n = len;
+    int i, p, m, w, n;
+    n = len, m = max(n, 256);
+    memset(cnt, 0, sizeof(cnt));
     for (i = 1; i <= n; ++i)
-        str[n + i] = str[i];
-    for (i = 1; i <= 2 * n; ++i)
-        sa[i] = i, rk[i] = str[i];
-
-    for (w = 1; w < n; w <<= 1)
+        ++cnt[rk[i] = str[i]];
+    for (i = 1; i <= m; ++i)
+        cnt[i] += cnt[i - 1];
+    for (i = n; i >= 1; --i) // 倒序 使 相等时 靠后的数 排名靠后
+        sa[cnt[rk[i]]--] = i;
+    // for (i = 1; i <= n; ++i)
+    //     sa[cnt[rk[i]]--] = i;
+    for (w = 1; w < n; w <<= 1, m = p)
     {
-        sort(sa + 1, sa + 2 * n + 1, [](int x, int y) {
-            return rk[x] == rk[y] ? rk[x + w] < rk[y + w] : rk[x] < rk[y];
-        }); // 这里用到了 lambda
-        memcpy(oldrk, rk, sizeof(int) * (2 * n + 5));
-        // 由于计算 rk 的时候原来的 rk 会被覆盖，要先复制一份
-        for (p = 0, i = 1; i <= 2 * n; ++i) //去重
+        memset(cnt, 0, sizeof(cnt)); //对第二关键字排序
+        for (i = 1; i <= n; ++i)
+            id[i] = sa[i];
+        for (i = 1; i <= n; ++i)
+            ++cnt[rk[(id[i] + w) > n ? (id[i] + w) - n : (id[i] + w)]];
+        for (i = 1; i <= m; ++i)
+            cnt[i] += cnt[i - 1];
+        for (i = n; i >= 1; --i)
+            sa[cnt[rk[(id[i] + w) > n ? (id[i] + w) - n : (id[i] + w)]]--] = id[i];
+        // (id[i] + w) > n ? (id[i] + w) - n : (id[i] + w);
+        memset(cnt, 0, sizeof(cnt));
+        for (i = 1; i <= n; ++i)
+            id[i] = sa[i];
+        for (i = 1; i <= n; ++i)
+            ++cnt[rk[id[i]]];
+        for (i = 1; i <= m; ++i)
+            cnt[i] += cnt[i - 1];
+        for (i = n; i >= 1; --i)
+            sa[cnt[rk[id[i]]]--] = id[i];
+        //排序
+        memcpy(oldrk, rk, sizeof(rk));
+        for (p = 0, i = 1; i <= n; ++i)
         {
             if (oldrk[sa[i]] == oldrk[sa[i - 1]] &&
-                oldrk[sa[i] + w] == oldrk[sa[i - 1] + w])
-            {
+                oldrk[(sa[i] + w) > n ? (sa[i] + w) - n : (sa[i] + w)] == oldrk[(sa[i - 1] + w) > n ? (sa[i - 1] + w) - n : (sa[i - 1] + w)])
                 rk[sa[i]] = p;
-            }
             else
-            {
                 rk[sa[i]] = ++p;
-            } // 若两个子串相同，它们对应的 rk 也需要相同，所以要去重
         }
     }
 }
@@ -55,15 +68,9 @@ int main()
         scanf("%s", str + 1);
         len = strlen(str + 1);
         calSA(str, len);
-        int pos;
-        for (pos = 1; pos <= len; pos++)
-        {
-            if (sa[pos] <= len)
-                break;
-        }
-        for (int i = sa[pos]; i <= len; ++i)
+        for (int i = sa[1]; i <= len; ++i)
             putchar(str[i]);
-        for (int i = 1; i < sa[pos]; ++i)
+        for (int i = 1; i < sa[1]; ++i)
             putchar(str[i]);
         putchar('\n');
     }
