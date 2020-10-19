@@ -9,17 +9,28 @@
 			"path": "C code"
 		},
 		{
-			"name": "python code",
-			"path": "python code"
+			"name": "course code",
+			"path": "course code"
 		},
 		{
-			"path": "web code"
+			"name": "template",
+			"path": "template"
 		},
 		{
+			"name": "Visual Studio",
+			"path": "Visual Studio"
+		},
+		{
+			"name": "matlab",
 			"path": "matlab"
 		},
 		{
-			"path": "Visual Studio"
+			"name": "web code",
+			"path": "web code"
+		},
+		{
+			"name": "python code",
+			"path": "python code"
 		}
 	],
 	"settings": {

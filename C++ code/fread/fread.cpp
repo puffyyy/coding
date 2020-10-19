@@ -48,7 +48,7 @@ inline void write(T x)
 	push('\n');
 }
 
-inline void write(int x)
+inline void writeint(int x)
 {
 	static int sta[35];
 	int top = 0;
@@ -60,7 +60,7 @@ inline void write(int x)
 	while (top)
 		putchar(sta[--top] + '0');
 }
-int read()
+int readint()
 {
 	int p = 0, f = 1;
 	char c = getchar();

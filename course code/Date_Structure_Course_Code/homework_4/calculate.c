@@ -24,7 +24,8 @@ enum symbol
     OTHER
 };
 int PRI[] = {-1, 0, 0, 1, 1, 1, 2, 2};
-union sym {
+union sym
+{
     dataType num;
     enum oper op;
 };
@@ -175,7 +176,7 @@ void pushOp(enum oper op)
 enum oper topOp()
 {
     if (oTop == -1)
-        return 0;
+        return EQU;
     return opStack[oTop];
 }
 enum oper popOp()
