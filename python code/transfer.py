@@ -61,6 +61,7 @@ class ralation(object):
             y = int(input())
             self.update_ralation(x, y)
 '''
+
     def read_matrix(self):
         f = []
         n = self.R_matrix.lenth
