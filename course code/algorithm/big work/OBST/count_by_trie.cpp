@@ -4,10 +4,7 @@
 #include <cmath>
 #include <cstdlib>
 #include <algorithm>
-#include <vector>
-#include <stack>
-#include <queue>
-#include <set>
+#include "file_read.h"
 using namespace std;
 struct node
 {
@@ -15,43 +12,7 @@ struct node
     // int son;
     node *alpha[27];
 };
-/********************************/
-/**********read file*************/
-inline char gc(FILE *in)
-{
-    static char buf[100000], *s, *t;
-    return (s == t) && (t = (s = buf) + fread(buf, 1, 100000, in)), s == t ? -1 : *s++;
-}
-int file_read_words(FILE *in, char *s)
-{
-    static char temp;
-    static int i;
-    if (in)
-    {
-        i = 0;
-        *s = '\0';
-        while ((temp = gc(in)) != EOF)
-        {
-            if (96 < temp && 123 > temp)
-            {
-                *(s + (i++)) = temp;
-            }
-            else if (64 < temp && 91 > temp)
-            {
-                *(s + (i++)) = temp + 32;
-            }
-            else
-            {
-                if (*s != '\0')
-                {
-                    *(s + i) = '\0';
-                    return 1;
-                }
-            }
-        }
-    }
-    return 0;
-}
+long long word_cnt = 0, all_cnts = 0;
 /*********************************/
 node *trie_init()
 {
@@ -83,13 +44,16 @@ void trie_insert_word(node *root, char *str)
         }
         ++pos;
     }
+    if (!now->cnt)
+        ++word_cnt;
     ++now->cnt;
+    ++all_cnts;
 }
 node *build_trie(FILE *in)
 {
     node *root = trie_init();
     char s[50];
-    while (file_read_words(in, s))
+    while (file_read_word(in, s))
     {
         trie_insert_word(root, s);
     }
@@ -98,13 +62,13 @@ node *build_trie(FILE *in)
 void preorder_trie(node *root, int pos, FILE *out)
 {
     int i;
-    // static int pos = -1;
     static char str[100000];
     if (root != NULL)
     {
         ++pos;
         if (root->cnt)
         {
+            // all_cnt += root->cnt;
             str[pos] = '\0';
             fprintf(out, "%s %d\n", str, root->cnt);
         }
@@ -123,9 +87,11 @@ void preorder_trie(node *root, int pos, FILE *out)
 int main()
 {
     //ios::sync_with_stdio(false);
-    FILE *fin = fopen("in.txt", "r");
-    FILE *fout = fopen("out.txt", "w");
+    FILE *fin = fopen("book.txt", "r");
+    FILE *fout = fopen("count.txt", "w");
     node *root = build_trie(fin);
+
+    fprintf(fout, "%lld %lld\n", word_cnt, all_cnts);
     preorder_trie(root, -1, fout);
     return 0;
 }
