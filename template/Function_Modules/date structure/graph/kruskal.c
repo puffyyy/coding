@@ -7,14 +7,15 @@ struct edge
     int id, start, end, weight;
 } edges[MAXEDGE];
 int idpath[MAXVER];
-int parent[MAXVER];                   //并查集根节点
+int parent[MAXVER]; //并查集根节点
+int matrix[MAXVER][MAXVER];
 int cmp(const void *a, const void *b) //升序
 {
     struct edge *c = (struct edge *)a;
     struct edge *d = (struct edge *)b;
     return c->weight - d->weight;
 }
-void creatGraph(int numedges)
+void creatGraphByEdge(int numedges)
 {
     int i, s, e, w;
     int id;
@@ -23,6 +24,21 @@ void creatGraph(int numedges)
         scanf("%d%d%d%d", &id, &s, &e, &w);
         edges[i].id = id, edges[i].start = s, edges[i].end = e, edges[i].weight = w;
     }
+}
+int crearGraphByMatrix(int numver)
+{
+    int id_tmp = 0;
+    for (int i = 0; i < numver; i++)
+        for (int j = 0; j < numver; j++)
+        {
+            scanf("%d", &matrix[i][j]);
+            if (matrix[i][j])
+            {
+                edges[id_tmp].id = id_tmp, edges[id_tmp].start = i, edges[id_tmp].end = j, edges[id_tmp].weight = matrix[i][j];
+                ++id_tmp;
+            }
+        }
+    return id_tmp;
 }
 void initUF()
 {
@@ -72,7 +88,7 @@ void kruskal(int numver, int numedges)
         if (findUF(u) != findUF(v)) //两个点不在一个集合里则无回路
         {
             idpath[num] = edges[i].id;
-            printf("%d %d %d %d\n", edges[i].id, u, v, edges[i].weight);
+            printf("%d %d %d %d\n", edges[i].id, u, v, edges[i].weight); //save
             unionUF(u, v);
             sumweight += edges[i].weight;
             num++;
@@ -85,8 +101,10 @@ void kruskal(int numver, int numedges)
 int main()
 {
     int numver, numedges;
-    scanf("%d%d", &numver, &numedges);
-    creatGraph(numedges);
+    // scanf("%d%d", &numver, &numedges);
+    // creatGraphByEdge(numedges);
+    scanf("%d", &numver);
+    numedges = crearGraphByMatrix(numver);
     kruskal(numver, numedges);
 
     return 0;
