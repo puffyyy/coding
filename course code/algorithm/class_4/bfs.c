@@ -13,7 +13,7 @@ struct queue
 void init()
 {
     memset(que.queue, 0, sizeof(int) * qsize);
-    que.head = -1;
+    que.head = 0;
     que.tail = -1;
     que.size = 0;
 }

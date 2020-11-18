@@ -3,10 +3,10 @@
 #include <math.h>
 #include <stdlib.h>
 #define maxm 100
-int dis[maxm], vis[maxm];
+int dis[maxm], vis[maxm]; //vis 表示是否在队列中
 int q[maxm * 2];
 int a[maxm][maxm];
-void spfa(int n, int s)
+void spfa(int n, int s) //求含负权边的单源最短路径
 {
     for (int i = 0; i <= n; i++)
         dis[i] = 0x3fffffff; //初始化每点i到s的距离

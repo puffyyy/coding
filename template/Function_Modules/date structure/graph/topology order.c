@@ -79,6 +79,6 @@ int main()
     int numVertexes, numEdges;
     scanf("%d%d", &numVertexes, &numEdges);
     creatGraph(numVertexes, numEdges);
-
+    topolpgy(numVertexes);
     return 0;
 }

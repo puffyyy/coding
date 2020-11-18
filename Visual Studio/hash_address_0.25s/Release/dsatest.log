@@ -1,11 +1,7 @@
 ﻿  ds.c
-G:\Code\Visual Studio\hash_address_0.47s\ds.c(7,1): warning C4005: “max”: 宏重定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\stdlib.h(1289): message : 参见“max”的前一个定义
-G:\Code\Visual Studio\hash_address_0.47s\ds.c(8,1): warning C4005: “min”: 宏重定义
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\stdlib.h(1290): message : 参见“min”的前一个定义
   正在生成代码
-  3 of 19 functions (15.8%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
+  10 of 10 functions (100.0%) were compiled.
+    6 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
-  dsatest.vcxproj -> G:\Code\Visual Studio\hash_address_0.47s\Release\dsatest.exe
+LINK : fatal error LNK1248: 映像大小(8F0EC000)超过允许的最大大小(80000000)
