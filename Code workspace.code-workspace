@@ -95,7 +95,11 @@
 			"string": "cpp",
 			"string_view": "cpp",
 			"fstream": "cpp",
-			"cstdio": "cpp"
+			"cstdio": "cpp",
+			"initializer_list": "cpp",
+			"unordered_set": "cpp",
+			"map": "cpp",
+			"set": "cpp"
 		},
 		"python.pythonPath": "c:\\Users\\LK01\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
 		"liveServer.settings.multiRootWorkspaceName": "web code"

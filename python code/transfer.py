@@ -52,15 +52,16 @@ class ralation(object):
         if (not self.R_matrix.matrix[row - 1][col - 1]):
             self.cnt += 1
         self.R_matrix.matrix[row - 1][col - 1] = 1
-'''
-    def insert_matrix(self):
-        n = input()
-        n = int(n)
-        for i in range(n):
-            x = int(input())
-            y = int(input())
-            self.update_ralation(x, y)
-'''
+
+    '''
+        def insert_matrix(self):
+            n = input()
+            n = int(n)
+            for i in range(n):
+                x = int(input())
+                y = int(input())
+                self.update_ralation(x, y)
+    '''
 
     def read_matrix(self):
         f = []

@@ -1,3 +1,4 @@
+//链式前向星
 #include <iostream>
 #include <cstdio>
 #include <cstring>
