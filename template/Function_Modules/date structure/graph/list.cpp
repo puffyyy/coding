@@ -16,10 +16,10 @@ const int maxn = 1005;
 int n, m, cnt; //n个点，m条边
 struct Edge
 {
-    int to, w, next; //终点，边权，同起点的上一条边的编号
-} edge[maxn];        //边集
-int head[maxn];      //head[i],表示以i为起点的第一条边在边集数组的位置（编号）
-void init()          //初始化
+    int to, w, next;        //终点，边权，同起点的上一条边的编号
+} edge[(maxn << 1) + maxn]; //边集 搞大点
+int head[maxn];             //head[i],表示以i为起点的第一条边在边集数组的位置（编号）
+void init()                 //初始化
 {
     for (int i = 0; i <= n; i++)
         head[i] = -1;

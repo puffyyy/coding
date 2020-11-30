@@ -99,9 +99,12 @@ class Path(object):
         self.access.sort(key=len)
         print(self.access)
 
+    def work(self):
+        self.cal_TE_time()
+        self.cal_TL_time()
+        self.print_ans()
+
 
 if __name__ == "__main__":
     path = Path()
-    path.cal_TE_time()
-    path.cal_TL_time()
-    path.print_ans()
+    path.work()

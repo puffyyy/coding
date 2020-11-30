@@ -154,7 +154,7 @@ int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    // input_Number();
-    input_Poly();
+    input_Number();
+    // input_Poly();
     return 0;
 }
