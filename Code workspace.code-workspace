@@ -31,6 +31,9 @@
 		{
 			"name": "python code",
 			"path": "python code"
+		},
+		{
+			"path": "TEST"
 		}
 	],
 	"settings": {

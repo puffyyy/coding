@@ -22,6 +22,7 @@ inline bool findpath(int u)
             if (!match[v] || findpath(match[v]))
             {
                 match[v] = u;
+                match[u] = v;
                 return true;
             }
         }
@@ -36,6 +37,7 @@ inline int MaxMatch()
     for (int i = 1; i <= 1000; ++i)
     {
         memset(occur, 0, sizeof(occur));
+        // if (!match[i])
         if (findpath(i))
             ++res;
     }
