@@ -13,25 +13,18 @@ typedef long long int ll;
 const int MS = 1e5 + 5;
 int n;
 int tree[MS];
-int lowbit(int x)
-{
-    return x & (-x);
-}
-
+int lowbit(int x) { return x & (-x); }
 void update(int i, int k)
 {
-    //在i位置加上k
-    while (i <= n)
+    while (i <= n) //在i位置加上k
     {
         tree[i] += k;
         i += lowbit(i);
     }
 }
-
 int getsum(int i)
 {
-    //求A[1 - i]的和
-    int res = 0;
+    int res = 0; //求A[1 - i]的和
     while (i > 0)
     {
         res += tree[i];
@@ -39,10 +32,8 @@ int getsum(int i)
     }
     return res;
 }
-
 int main()
 {
-    //ios::sync_with_stdio(false);
 
     return 0;
 }

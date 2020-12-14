@@ -16,7 +16,6 @@ int box[51][10005];
 int dp[51][10005];
 int main()
 {
-    //ios::sync_with_stdio(false);
     int t, n, m;
     register int i, j, k;
     scanf("%d", &t);
@@ -73,3 +72,10 @@ int main()
     }
     return 0;
 }
+/*
+3
+3 3
+2 1 0 
+0 0 3
+2 1 3 
+*/

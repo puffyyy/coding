@@ -9,14 +9,15 @@
 using namespace std;
 typedef long long ll;
 #define inf 0x3fffffffffffffff
+const ll maxn = 50005;
 struct Edge
 {
     ll to, w, next;
-} edges[80005];
-ll head[20005];
-ll deepth[20005];
-ll cur[20005]; //当前弧优化
-ll n, cnt;
+} edges[maxn];
+ll head[maxn];
+ll deepth[maxn];
+ll cur[maxn]; //当前弧优化
+ll cnt;
 void init()
 {
     memset(head, -1, sizeof(head));
@@ -52,14 +53,14 @@ bool bfs(ll s, ll t)
             }
         }
     }
-    return false;
+    return false; //没有一条路径可以到达t
 }
-ll dfs(ll s, ll t, ll dist)
+ll dfs(ll s, ll t, ll dist) //dist 当前流量
 {
     if (s == t || dist == 0)
         return dist;
     ll flow = 0, temp_f;
-    for (ll &i = cur[s]; ~i; i = edges[i].next)
+    for (ll &i = cur[s]; ~i; i = edges[i].next) //i 是 cur[s]的引用
     {
         if (edges[i].w > 0 && deepth[s] + 1 == deepth[edges[i].to])
         {
@@ -67,52 +68,58 @@ ll dfs(ll s, ll t, ll dist)
             edges[i].w -= temp_f;
             edges[i ^ 1].w += temp_f;
             flow += temp_f;
+            // if (edges[i].w > 0)
+            //     cur[s] = i;
             if (flow == dist)
                 break;
         }
     }
     return flow;
 }
-ll dinic(ll s, ll t)
+ll dinic(ll n, ll s, ll t)
 {
     ll flow = 0;
     while (bfs(s, t))
     {
-        for (ll i = 0; i <= 2 * n + 1; i++) //此处的n是顶点个数 即head的个数
+        for (ll i = 0; i <= n; i++) //此处的n是顶点个数 即head的个数
             cur[i] = head[i];
         flow += dfs(s, t, inf);
     }
     return flow;
 }
+int a[32][32];
 int main()
 {
-    while (~scanf("%lld", &n))
-    {
-        ll to;
-        init();
-        for (int i = 1; i <= n; i++)
-            add_edge(0, i, 1);
-        for (int i = 1; i <= n; i++)
-            add_edge(i + n, 2 * n + 1, 1);
-        for (ll i = 1; i <= n; i++)
+    int n, m;
+    scanf("%d%d", &m, &n);
+    int s = 0, t = n * m + 1;
+    ll sum = 0;
+    for (int i = 1; i <= m; i++)
+        for (int j = 1; j <= n; j++)
         {
-            scanf("%lld", &to);
-            if (to > 0)
+            scanf("%d", &a[i][j]);
+            sum += a[i][j];
+        }
+    init();
+    for (int i = 1; i <= m; i++)
+        for (int j = 1; j <= n; j++)
+        {
+            if ((i + j) & 1)
+                add_edge(0, n * (i - 1) + j, a[i][j]);
+            else
             {
-                add_edge(i, n + to, 1);
-                add_edge(n + to, i, 1);
+                add_edge(n * (i - 1) + j, n * m + 1, a[i][j]);
+                if (i != 1)
+                    add_edge(n * (i - 2) + j, n * (i - 1) + j, inf);
+                if (i != m)
+                    add_edge(n * i + j, n * (i - 1) + j, inf);
+                if (j != 1)
+                    add_edge(n * (i - 1) + j - 1, n * (i - 1) + j, inf);
+                if (j != n)
+                    add_edge(n * (i - 1) + j + 1, n * (i - 1) + j, inf);
             }
         }
-        for (ll i = 1; i <= n; i++)
-        {
-            scanf("%lld", &to);
-            if (to > 0)
-            {
-                add_edge(i + n, to, 1);
-                add_edge(to, i + n, 1);
-            }
-        }
-        printf("%lld\n", n - dinic(0, 2 * n + 1));
-    }
+
+    printf("%lld", sum - dinic(n * m + 1, s, t));
     return 0;
 }

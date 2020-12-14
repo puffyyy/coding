@@ -7,22 +7,22 @@
 #include <vector>
 #include <queue>
 using namespace std;
-typedef long long ll;
-#define inf 0x3fffffffffffffff
+#define inf 0x3fffffff
+const int maxn = 50005;
 struct Edge
 {
-    ll to, w, next;
-} edges[80005];
-ll head[20005];
-ll deepth[20005];
-ll cur[20005]; //当前弧优化
-ll n, cnt;
+    int to, w, next;
+} edges[maxn];
+int head[maxn];
+int deepth[maxn];
+int cur[maxn]; //当前弧优化
+int n, m, cnt;
 void init()
 {
     memset(head, -1, sizeof(head));
     cnt = 0;
 }
-void add_edge(ll u, ll v, ll w)
+void add_edge(int u, int v, int w)
 {
     edges[cnt].to = v, edges[cnt].w = w;
     edges[cnt].next = head[u];
@@ -31,17 +31,17 @@ void add_edge(ll u, ll v, ll w)
     edges[cnt].next = head[v];
     head[v] = cnt++;
 }
-bool bfs(ll s, ll t)
+bool bfs(int s, int t)
 {
     memset(deepth, 0, sizeof(deepth));
-    queue<ll> que;
+    queue<int> que;
     que.push(s);
     deepth[s] = 1;
-    ll u;
+    int u;
     while (que.size())
     {
         u = que.front(), que.pop();
-        for (ll i = head[u]; ~i; i = edges[i].next)
+        for (int i = head[u]; ~i; i = edges[i].next)
         {
             if (edges[i].w > 0 && deepth[edges[i].to] == 0)
             {
@@ -52,14 +52,14 @@ bool bfs(ll s, ll t)
             }
         }
     }
-    return false;
+    return false; //没有一条路径可以到达t
 }
-ll dfs(ll s, ll t, ll dist)
+int dfs(int s, int t, int dist) //dist 当前流量
 {
     if (s == t || dist == 0)
         return dist;
-    ll flow = 0, temp_f;
-    for (ll &i = cur[s]; ~i; i = edges[i].next)
+    int flow = 0, temp_f;
+    for (int &i = cur[s]; ~i; i = edges[i].next) //i 是 cur[s]的引用
     {
         if (edges[i].w > 0 && deepth[s] + 1 == deepth[edges[i].to])
         {
@@ -67,52 +67,52 @@ ll dfs(ll s, ll t, ll dist)
             edges[i].w -= temp_f;
             edges[i ^ 1].w += temp_f;
             flow += temp_f;
+            // if (edges[i].w > 0)
+            //     cur[s] = i;
             if (flow == dist)
                 break;
         }
     }
     return flow;
 }
-ll dinic(ll s, ll t)
+int dinic(int s, int t)
 {
-    ll flow = 0;
+    int flow = 0;
     while (bfs(s, t))
     {
-        for (ll i = 0; i <= 2 * n + 1; i++) //此处的n是顶点个数 即head的个数
+        for (int i = 0; i <= n; i++) //此处的n是顶点个数 即head的个数
             cur[i] = head[i];
         flow += dfs(s, t, inf);
     }
     return flow;
 }
+struct node
+{
+    int a, b, c;
+} e[105];
 int main()
 {
-    while (~scanf("%lld", &n))
+    int s, t;
+    scanf("%d%d", &n, &m);
+    int from, to, wei;
+    for (int i = 0; i < m; i++)
+        scanf("%d%d%d", &e[i].a, &e[i].b, &e[i].c);
+
+    for (int i = 0; i < m; i++)
     {
-        ll to;
+        int ccc = e[i].c;
+        s = e[i].a, t = e[i].b;
         init();
-        for (int i = 1; i <= n; i++)
-            add_edge(0, i, 1);
-        for (int i = 1; i <= n; i++)
-            add_edge(i + n, 2 * n + 1, 1);
-        for (ll i = 1; i <= n; i++)
+        for (int j = 0; j < m; j++)
         {
-            scanf("%lld", &to);
-            if (to > 0)
+            if (e[j].c < ccc && i != j)
             {
-                add_edge(i, n + to, 1);
-                add_edge(n + to, i, 1);
+                add_edge(e[j].a, e[j].b, 1);
+                add_edge(e[j].b, e[j].a, 1);
             }
         }
-        for (ll i = 1; i <= n; i++)
-        {
-            scanf("%lld", &to);
-            if (to > 0)
-            {
-                add_edge(i + n, to, 1);
-                add_edge(to, i + n, 1);
-            }
-        }
-        printf("%lld\n", n - dinic(0, 2 * n + 1));
+        printf("%d ", dinic(s, t));
     }
+
     return 0;
 }

@@ -1,3 +1,10 @@
+/* 
+ Author: 杨东霖
+ Result: AC	Submission_id: 2995683
+ Created at: Sat Nov 14 2020 16:29:00 GMT+0800 (China Standard Time)
+ Problem_id: 3655	Time: 113	Memory: 11204
+*/
+
 #include <iostream>
 #include <cstdio>
 #include <cstring>
@@ -35,10 +42,10 @@ struct edgeNode *insertEdge(struct edgeNode **head, int end, int weight)
         return *head = e;
     else
     {
-        for (p = *head; p->link != NULL; p = p->link)
-            ;
+        p = (*head)->link;
+        (*head)->link = e;
+        e->link = p;
     }
-    p->link = e;
     return *head;
 }
 void creatGraph(int numVertexes, int numEdges)

@@ -7,7 +7,7 @@ int a[MS];
 int map[MS]; // pos <- map[i] 表示 值i 在 a序列中的位置是 pos
 int f[MS];   // f 是有序的 f 存储的是当前的选择的上升序列 f[i]存储的值是 a序列中的位置
 int len;     // len 是 f 当前的长度
-int main()
+int main()   // A，B的最长子序列在这种标号的情况下必定是单调递增的。此时这个问题变成求B的最长上升子序列。
 {
     int n;
     scanf("%d", &n);

@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #define maxm 1000005
-
 struct word
 {
 	double x1;
@@ -14,7 +13,6 @@ struct word
 };
 typedef struct word Node;
 typedef struct word *Nodeptr;
-
 struct point
 {
 	double x;
@@ -29,41 +27,28 @@ Node a[maxm];
 Node2 b[maxm * 2];
 Nodeptr list, p, q, r;
 int m;
-
 double max(double a, double b)
 {
 	if (a >= b)
-	{
 		return a;
-	}
 	else
-	{
 		return b;
-	}
 }
 
 double min(double a, double b)
 {
 	if (a <= b)
-	{
 		return a;
-	}
 	else
-	{
 		return b;
-	}
 }
 
 double direction(int i, int j, int k) //��������
 {
 	if (k == 1)
-	{
 		return (a[j].x1 - a[i].x1) * (a[i].y2 - a[i].y1) - (a[j].y1 - a[i].y1) * (a[i].x2 - a[i].x1);
-	}
 	else
-	{
 		return (a[j].x2 - a[i].x1) * (a[i].y2 - a[i].y1) - (a[j].y2 - a[i].y1) * (a[i].x2 - a[i].x1);
-	}
 }
 
 int on_segment(int i, int j, int k) //�ж��߶�j������ĳһ�����Ƿ����߶�i��
@@ -71,24 +56,16 @@ int on_segment(int i, int j, int k) //�ж��߶�j������ĳһ�
 	if (k == 1)
 	{
 		if (min(a[i].x1, a[i].x2) <= a[j].x1 && a[j].x1 <= max(a[i].x1, a[i].x2) && min(a[i].y1, a[i].y2) <= a[j].y1 && a[j].y1 <= max(a[i].y1, a[i].y2))
-		{
 			return 1;
-		}
 		else
-		{
 			return 0;
-		}
 	}
 	else
 	{
 		if (min(a[i].x1, a[i].x2) <= a[j].x2 && a[j].x2 <= max(a[i].x1, a[i].x2) && min(a[i].y1, a[i].y2) <= a[j].y2 && a[j].y2 <= max(a[i].y1, a[i].y2))
-		{
 			return 1;
-		}
 		else
-		{
 			return 0;
-		}
 	}
 }
 
@@ -99,29 +76,17 @@ int intersect(int i, int j) //�ж��߶�i���߶�j�Ƿ��ཻ
 	double d3 = direction(i, j, 1);
 	double d4 = direction(i, j, 2);
 	if (((d1 > 0 && d2 < 0) || (d1 < 0 && d2 > 0)) && ((d3 > 0 && d4 < 0) || (d3 < 0 && d4 > 0)))
-	{
 		return 1;
-	}
 	else if (d1 > -0.00000000001 && d1 < 0.00000000001 && on_segment(j, i, 1))
-	{
 		return 1;
-	}
 	else if (d2 > -0.00000000001 && d2 < 0.00000000001 && on_segment(j, i, 2))
-	{
 		return 1;
-	}
 	else if (d3 > -0.00000000001 && d3 < 0.00000000001 && on_segment(i, j, 1))
-	{
 		return 1;
-	}
 	else if (d4 > -0.00000000001 && d4 < 0.00000000001 && on_segment(i, j, 2))
-	{
 		return 1;
-	}
 	else
-	{
 		return 0;
-	}
 }
 
 int cmp(const void *p1, const void *p2)
@@ -129,29 +94,17 @@ int cmp(const void *p1, const void *p2)
 	Node2 xx1 = *(Nodeptr2)p1;
 	Node2 xx2 = *(Nodeptr2)p2;
 	if (xx1.x > xx2.x)
-	{
 		return 1;
-	}
 	else if (xx1.x < xx2.x)
-	{
 		return -1;
-	}
 	else if (xx1.size == 2 && xx2.size == 1)
-	{
 		return 1;
-	}
 	else if (xx1.size == 1 && xx2.size == 2)
-	{
 		return -1;
-	}
 	else if (xx1.y > xx2.y)
-	{
 		return 1;
-	}
 	else
-	{
 		return -1;
-	}
 }
 
 int any_intersect()
@@ -179,17 +132,11 @@ int any_intersect()
 				p = r->next;
 				double z = (p->x2 - p->x1) * p->y1 + (p->y2 - p->y1) * (b[i].x - p->x1) - b[i].y * (p->x2 - p->x1);
 				if (z > -0.000000001 && z < 0.000000001 && b[i].x >= min(p->x1, p->x2) && b[i].x <= max(p->x1, p->x2))
-				{
 					return 1;
-				}
 				else if (z < 0 || (z > -0.000000001 && z < 0.000000001))
-				{
 					flag = 1;
-				}
 				if (flag == 0)
-				{
 					r = r->next;
-				}
 			}
 			r->next = q;
 			q->next = p;
@@ -198,26 +145,17 @@ int any_intersect()
 		{
 			l = b[i].seg;
 			for (r = list; r->next->seg != l; r = r->next)
-			{
-			}
+				;
 			p = r;
 			q = r->next->next;
 			if (p != list && q != NULL && intersect(p->seg, q->seg) == 1)
-			{
 				return 1;
-			}
 			else if (p != list && intersect(p->seg, l) == 1)
-			{
 				return 1;
-			}
 			else if (q != NULL && intersect(l, q->seg) == 1)
-			{
 				return 1;
-			}
 			else
-			{
 				p->next = q;
-			}
 		}
 	}
 	return 0;

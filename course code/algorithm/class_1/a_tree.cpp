@@ -28,7 +28,7 @@ void update(int i, int k)
 
 int getsum(int i)
 {
-    //求A[1 - i]的和
+    //求A[1 - i]的和 左闭右闭区间
     int res = 0;
     while (i > 0)
     {

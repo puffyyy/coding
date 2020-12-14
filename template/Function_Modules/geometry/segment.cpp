@@ -70,9 +70,6 @@ bool segment_intersect(Point p1, Point p2, Point p3, Point p4)
         return true;
     return false;
 }
-bool any_segment_intersect()
-{
-}
 int main()
 {
     Point p1 = Point(0, 0);

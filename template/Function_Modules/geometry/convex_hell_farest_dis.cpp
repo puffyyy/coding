@@ -88,8 +88,8 @@ inline ll get_convex_diameter()
         return s[0].dis2(s[1]);
     int j = 2;
     ll ret = 0;
-    //此处采用三角形面积的叉乘公式进行对比
-    for (int i = 0; i < cnt; ++i)
+
+    for (int i = 0; i < cnt; ++i) //此处采用三角形面积的叉乘公式进行对比
     {
         while (((s[i + 1] - s[i]) ^ (s[j] - s[i])) < ((s[i + 1] - s[i]) ^ (s[j + 1] - s[i])))
             j = (j + 1) % cnt;

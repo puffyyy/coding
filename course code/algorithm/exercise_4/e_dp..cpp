@@ -15,11 +15,9 @@ int dp[30005];
 int w[MS];
 int price[MS];
 int cnt[MS];
-
 int main()
 {
     int n, v;
-    //ios::sync_with_stdio(false);
     while (~scanf("%d%d", &n, &v))
     {
         memset(dp, 0, sizeof(dp));

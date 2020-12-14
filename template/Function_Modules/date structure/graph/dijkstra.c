@@ -7,7 +7,7 @@
 int adjmatrix[MAXVER][MAXVER];
 int path[MAXVER]; //最短路径数组含义为path[v]表示顶点v在最短路径上的直接前驱顶点,path[v1]=v2 即表示v1的前驱是v2
 int minweight[MAXVER];
-
+//顶点从 0 开始的
 void creatGraphByEdge(int n, int m)
 {
     int s, e, w;
@@ -82,7 +82,7 @@ void dijkstra(int source, int n)
         int v, min = MAX_INT;
         for (int j = 0; j < n; j++) //找未访问过的最小路径的边
         {
-            if (!vfound[j] && {min > minweight[j]})
+            if (!vfound[j] && (min > minweight[j]))
             {
                 min = minweight[j];
                 v = j;

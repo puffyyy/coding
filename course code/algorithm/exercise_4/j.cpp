@@ -6,11 +6,12 @@
 #include <algorithm>
 using namespace std;
 typedef long long int ll;
+
 const int MS = 1e6 + 5;
 int a[MS], b[MS];
 int n, m;
 int getmid(int a[], int la, int b[], int lb, int k)
-{
+{ //两个数列,从小到大排列,寻找两个序列的第k个
     if (la >= n)
         return b[lb + k - 1];
     if (lb >= m)

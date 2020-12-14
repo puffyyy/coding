@@ -3,26 +3,17 @@
 #include <cstring>
 #include <algorithm>
 using namespace std;
-
 int n, m, x, y, top = 0, cnt = 0, t, col;
-int ans1 = -1, ans2 = -1, ans3 = -1;
-int d[200020];
-int a[200020];
-int c[200020];
-int f[200020];
+int d[200020], a[200020], c[200020], f[200020];
 int dfn[200020];
 int low[200020];
 int stack[200020];
-
 bool v[200020];
 struct edge
 {
-    int u;
-    int v;
-    int w;
+    int u, v, w;
     int next;
 } e[1000020];
-
 void Add(int u, int v, int w)
 {
     ++top;
@@ -32,7 +23,6 @@ void Add(int u, int v, int w)
     e[top].next = f[u];
     f[u] = top;
 }
-
 int read()
 {
     int x = 0;
@@ -49,7 +39,6 @@ int read()
         c = getchar();
     return x * k;
 }
-
 void tarjan(int now)
 {
     dfn[now] = low[now] = ++cnt;
@@ -75,7 +64,6 @@ void tarjan(int now)
         printf("\n");
     }
 }
-
 int main()
 {
     n = read();
@@ -93,3 +81,4 @@ int main()
         if (!dfn[i])
             tarjan(i);
     return 0;
+}

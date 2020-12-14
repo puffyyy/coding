@@ -91,7 +91,7 @@ int main()
         double lsum = getsum(stars[i].pos);            // 在i左侧的离原点坐标和
         double lsum_to_i = lcnt * stars[i].dis - lsum; // 在i左侧的离当前点i 的距离和
         double rsum_to_i = sum_to_i - lsum - (i - 1 - lcnt) * stars[i].dis;
-        ans += (lsum_to_i + rsum_to_i) * stars[i].val;
+        ans += (lsum_to_i + rsum_to_i) * stars[i].val; // 当前的i是val最大的
 
         updatecnt(stars[i].pos, 1);
         updatesum(stars[i].pos, stars[i].dis);

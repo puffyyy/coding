@@ -2,18 +2,15 @@
 #include <cstdio>
 #include <cstring>
 #include <iostream>
-
 using namespace std;
-
+//sa[i]表示将所有后缀排序后第i小的后缀的编号, rk[i]表示后缀i的排名。
 const int N = 100;
 char s[N];
 int n, sa[N], rk[N << 1], oldrk[N << 1], id[N], cnt[N];
-
 //基数排序优化
 int main()
 {
     int i, m, p, w;
-
     scanf("%s", s + 1);
     // 初始化
     n = strlen(s + 1);
@@ -24,8 +21,6 @@ int main()
         cnt[i] += cnt[i - 1];
     for (i = n; i >= 1; --i) // 倒序 使 相等时 靠后的数 排名靠后
         sa[cnt[rk[i]]--] = i;
-    // for (i = 1; i <= n; ++i)
-    //     sa[cnt[rk[i]]--] = i;
     for (w = 1; w < n; w <<= 1)
     {
         memset(cnt, 0, sizeof(cnt)); //对第二关键字排序
@@ -47,7 +42,7 @@ int main()
         for (i = n; i >= 1; --i)
             sa[cnt[rk[id[i]]]--] = id[i];
         //排序
-        memcpy(oldrk, rk, sizeof(rk));
+        memcpy(oldrk, rk, sizeof(rk)); // 由于计算 rk 的时候原来的 rk 会被覆盖，要先复制一份
         for (p = 0, i = 1; i <= n; ++i)
         {
             if (oldrk[sa[i]] == oldrk[sa[i - 1]] &&
@@ -64,7 +59,6 @@ int main()
             printf("%d ", rk[i]);
         putchar('\n');
     }
-
     for (i = 1; i <= n; ++i)
         printf("%d ", sa[i]);
 
