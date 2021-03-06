@@ -1,26 +1,16 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+#include <cmath>
+#include <cstdlib>
+#include <algorithm>
 using namespace std;
 typedef long long ll;
-ll n, a[100], sum, s[100], anss;
-int main()
-{
-	scanf("%lld", &n);
-	for (int i = 1; i <= n; i++)
-	{
-		scanf("%lld", &a[i]);
-		sum += a[i];
-	}
-	sum /= n;
-	for (int i = 1; i <= n; i++)
-	{
-		a[i] -= sum;
-		s[i] = s[i - 1] + a[i];
-	}
-	sort(s + 1, s + n + 1);
-	for (int i = 1; i <= n; i++)
-	{
-		anss += abs(s[n / 2 + 1] - s[i]);
-	}
-	printf("%lld", anss);
+const int inf =0x7fffffff;
+int main() {
+	int n,m,s,k;
+	scanf("%d%d%d",&s,&n,&m);
+	s-=n*m;
+	printf("%d",(int)pow(n,s));
 	return 0;
 }

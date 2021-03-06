@@ -40,7 +40,6 @@ void floyd(int numver)
                 if (distance[i][k] != INF && distance[k][j] != INF && distance[i][j] > distance[i][k] + distance[k][j])
                 {
                     distance[i][j] = distance[i][k] + distance[k][j];
-                    // path[i][j] = path[i][k];
                     path[i][j] = path[i][k];
                 }
             }

@@ -60,11 +60,11 @@ int *c_lowerbound(int *begin, int *end, int target)
         {
             right = mid;
         }
-        else if (*mid < target)
+        else if (*mid < target) //改成*mid > target时 为降序序列 返回第一个小于等于
         {
             left = mid + 1;
         }
-        else if (*mid > target)
+        else if (*mid > target) //同上
         {
             right = mid;
         }
@@ -84,11 +84,11 @@ int *c_upperbound(int *begin, int *end, int target)
         {
             left = mid + 1; // 注意
         }
-        else if (*mid < target)
+        else if (*mid < target) //  改成*mid > target时 为降序序列 返回第一个小于
         {
             left = mid + 1;
         }
-        else if (*mid > target)
+        else if (*mid > target) // 同上
         {
             right = mid;
         }
