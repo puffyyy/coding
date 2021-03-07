@@ -1,0 +1,23 @@
+/* 
+px 像素 
+em 字符间距
+% 
+*/
+
+/* 颜色 */
+.col{
+    color: rgb(red, green, blue);/* 0-255 或 0%-100% */
+    color: rgba(red, green, blue, alpha);
+    color: #9abcde;/*十六进制数*/
+}
+.text{
+    letter-spacing: normal;/* 字符间距 2px -3px*/
+    line-height: normal;/* 行高 14px 1.5em 120%*/
+    text-align: center; /* 对齐 left right justify*/
+    text-decoration: none; /*装饰线 overline underline line-through*/
+    text-indent: 2em; /*首行缩进*/
+}
+.f{
+    font: italic bold 16px/1.5em '宋体';
+    /* 是否斜粗体 字号行高 字体 */
+}

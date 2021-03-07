@@ -1,0 +1,29 @@
+/* 
+文档流
+    从上到下从左到右
+    元素的分类 block inline inline-block
+    block: 
+        独占一行 height width padding bargin等都可以设置 
+        例如 div p h1 h2 .. h6 ol ul table form
+        可以添加属性 display:block; 进行转换 
+    inline:
+        不单独占一行 不能设置height width 由图片或文字决定
+        例如 span a
+        display:inline;
+        inline 元素之间由默认的间距
+    inline-block:
+        不单独占一行 height width padding bargin等都可以设置 
+        例如 img
+        display:inline-block;
+
+浮动
+    float left right top
+    clear left right both
+层
+    position fixed relative absolute 
+        left right top bottom z-index
+        fixed 固定定位 相对于浏览器窗口定位
+        relative 相对于直接父元素的定位             其在文档流的位置仍然存在
+        absolute 非static定位以外的第一个父元素 其在正常流中的位置不再存在
+
+*/

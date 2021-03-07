@@ -1,0 +1,22 @@
+/* 背景 */
+.back{
+    background-color: aqua;
+    background-image: url(a.img);
+    background-repeat: repeat;/*repeat-x,repeat-y,no-repeat*/
+    /* background: 颜色 图片 repeat */
+}
+
+/* 超链接 */
+a{
+    font-size: 22px;
+}
+/* a:link{
+}
+a:visited{
+} */
+a:hover{
+    font-size: 120%;
+}
+/* a:active{
+} */
+/* 伪类 */

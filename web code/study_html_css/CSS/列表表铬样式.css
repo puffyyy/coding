@@ -1,0 +1,18 @@
+li{
+    list-style: circle;
+    /* 标号类型 */
+    list-style-image: none;
+    list-style-position: inside;/*outside */
+}
+table{
+    width: 300px;
+    height: 200px;
+    border-collapse: collapse;
+}
+table,td,th{
+    border: 1px,solid,#eeeeee;
+}
+tr:nth-child(odd){
+    background-color: #eaf2d3;
+}
+/* 奇偶选择器    */

@@ -1,0 +1,29 @@
+/* 标签选择器 */
+/* 类别选择器 */
+.class_1{
+    font-size: 12px;
+}
+/* <p class="class_1"> </ p> */
+/* id选择器 */
+#id_1{
+    font-size: 24px;
+}
+/* <p id=""> </p> */
+
+/* 嵌套声明 */
+p span{
+    /* p标签内部的span标签 */
+    font-size: 36px;
+}
+/* 集体声明 */
+h1,p{
+    text-align: center;
+}/* 作用于h1和p标签都采用这种样式 */
+/* 全局声明 */
+*{
+    text-align: center;
+}
+
+
+/* 多个class可以混用 ,id和class也可以混用 但id选择器不能多次使用*/
+/* <div class="yellow left one"> ... </div> */
