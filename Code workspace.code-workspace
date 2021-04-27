@@ -5,18 +5,6 @@
 			"path": "C++ code"
 		},
 		{
-			"name": "C code",
-			"path": "C code"
-		},
-		{
-			"name": "course code",
-			"path": "course code"
-		},
-		{
-			"name": "template",
-			"path": "template"
-		},
-		{
 			"name": "Visual Studio",
 			"path": "Visual Studio"
 		},
@@ -29,14 +17,16 @@
 			"path": "web code"
 		},
 		{
-			"name": "python code",
-			"path": "python code"
-		},
-		{
 			"path": "TEST"
 		},
 		{
 			"path": "Tex"
+		},
+		{
+			"path": "Java"
+		},
+		{
+			"path": "Python"
 		}
 	],
 	"settings": {

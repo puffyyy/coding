@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>grade</title>
+</head>
+<style type="text/css">
+    .welcome {
+        margin: 0 auto 30px;
+        padding: 3px 15px;
+        width: fit-content;
+        font-size: 21px;
+        color: #565656;
+        font-weight: bold;
+        border-left: solid 3px #aaa;
+        border-right: solid 3px #aaa;
+        border-radius: 5px;
+    }
+
+    table.tftable {
+        font-size: 12px;
+        color: #333333;
+        width: 40%;
+        margin: auto;
+        border-width: 1px;
+        border-color: #729ea5;
+        border-collapse: collapse;
+    }
+
+    table.tftable th {
+        font-size: 12px;
+        background-color: #acc8cc;
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #729ea5;
+        text-align: left;
+    }
+
+    table.tftable tr {
+        background-color: #d4e3e5;
+    }
+
+    table.tftable td {
+        font-size: 12px;
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #729ea5;
+    }
+</style>
+<body>
+<p class="welcome" style="height: 40px ">{{username}} 's grade</p>
+<table id="tfhover" class="tftable" border="1">
+    <tr>
+        <th>Course</th>
+        <th>Grade</th>
+    </tr>
+
+    <script>
+        var fa = document.getElementById('tfhover');
+        var str = '{{ text|safe }}';
+        str = str.trim();
+        var len = str.split(' ').length;
+        var nstr = str.split(' ');
+        for (let i = 0; i < str.split(' ').length; i += 2) {
+            var ch = document.createElement('tr');
+            var ch1 = document.createElement('td');
+            ch1.innerText = nstr[i];
+
+            var ch2 = document.createElement('td');
+            ch2.innerText = nstr[i + 1];
+            ch.appendChild(ch1);
+            ch.appendChild(ch2);
+            fa.appendChild(ch);
+        }
+
+    </script>
+</table>
+
+<script type="text/javascript">
+    window.onload = function () {
+        var tfrow = document.getElementById('tfhover').rows.length;
+        var tbRow = [];
+        for (var i = 1; i < tfrow; i++) {
+            tbRow[i] = document.getElementById('tfhover').rows[i];
+            tbRow[i].onmouseover = function () {
+                this.style.backgroundColor = '#ffffff';
+            };
+            tbRow[i].onmouseout = function () {
+                this.style.backgroundColor = '#d4e3e5';
+            };
+        }
+    };
+</script>
+
+
+</body>
+</html>
