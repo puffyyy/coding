@@ -2,10 +2,10 @@ package Server.Service;
 
 import Common.entity.Message;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
-import static Server.DAO.OfflineMessageDao.*;
+import static Server.DAO.OfflineMessageDao.deleteOfflineMessageByUserId;
+import static Server.DAO.OfflineMessageDao.getOfflineMessageById;
 
 public class OfflineMessageService {
     public ArrayList<Message> selectOfflineMessageById(Long uid) {

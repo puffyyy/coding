@@ -7,7 +7,7 @@ public class FontUtil {
     
     static {
         
-        font = new Font("PingFang SC", Font.PLAIN, 14);
+        font = new Font("微软雅黑", Font.PLAIN, 14);//PingFang SC
     }
     
     public static Font getDefaultFont() {

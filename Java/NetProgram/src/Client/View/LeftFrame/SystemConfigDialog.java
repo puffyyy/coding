@@ -1,7 +1,9 @@
 package Client.View.LeftFrame;
 
 import Client.View.MainFrame;
-import Client.View.utils.*;
+import Client.View.utils.Colors;
+import Client.View.utils.FontUtil;
+import Client.View.utils.GBC;
 import Client.View.utils.component.RCBorder;
 import Client.View.utils.component.RCButton;
 import Client.View.utils.component.VerticalFlowLayout;

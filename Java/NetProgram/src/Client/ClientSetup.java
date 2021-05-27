@@ -1,7 +1,6 @@
 package Client;
 
 import Client.View.LoginFrame;
-import Common.util.SocketIO;
 
 import javax.swing.*;
 import java.io.*;

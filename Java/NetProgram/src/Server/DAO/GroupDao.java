@@ -70,7 +70,7 @@ public class GroupDao {
             return messages;
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;
+            return new ArrayList<>();
         } finally {
             DBUtil.close(statement, con);
         }

@@ -1,6 +1,8 @@
 package Client.View.entity;
 
+import Client.ClientCache;
 import Common.entity.Group;
+import Common.entity.Message;
 import Common.entity.User;
 
 import java.util.ArrayList;
@@ -18,24 +20,28 @@ public class GroupItem implements Comparable<GroupItem> {
         roomId = g.getGid();
         groupMember = g.getUsers();
         title = g.getName();
+        unreadCount = 0;
         if (g.getMessages().size() > 0) {
-            lastText = g.getMessages().get(0).getContent();
-            timestamp = g.getMessages().get(0).getSendTime().getTime();
+            Message m = g.getMessages().get(0);
+            if (groupMember.size() == 2) {
+                type = "channel";
+                lastText = m.getContent();
+            } else {
+                type = "group";
+                if (m.getFromUserId() == ClientCache.currentUser.getUid()) {
+                    lastText = m.getContent();
+                } else {
+                    Long from_uid = m.getFromUserId();
+                    String from_name = "user";
+                    from_name = g.users.stream().filter(u -> u.getUid() == from_uid).findFirst().map(User::getUsername).orElse(from_name);
+                    lastText = from_name + ":" + m.getContent();
+                }
+            }
+            timestamp = m.getSendTime().getTime();
         } else {
             lastText = "";
             timestamp = -1;
         }
-        unreadCount = 0;
-        type = "text";
-    }
-    
-    public GroupItem(Long roomId, String title, String lastText, int unreadCount, long timestamp, String type) {
-        this.roomId = roomId;
-        this.title = title;
-        this.lastText = lastText;
-        this.unreadCount = unreadCount;
-        this.timestamp = timestamp;
-        this.type = type;
     }
     
     public Long getRoomId() {

@@ -16,12 +16,14 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import static Common.entity.RequestType.ADD_FRIEND;
 import static Common.entity.RequestType.LOGIN;
 import static Common.entity.ResponseType.OK;
 import static Common.entity.ResponseType.WRONG;
 
 public class RequestProcessor implements Runnable {
     private final Socket clientSocket;
+    private User curUser;
     
     public RequestProcessor(Socket clientSocket) {
         this.clientSocket = clientSocket;
@@ -54,7 +56,7 @@ public class RequestProcessor implements Runnable {
                         sendMessage(request);
                         break;
                     case ADD_FRIEND:
-                        addFriend();
+                        addFriend(socketIO, request);
                         break;
                     case JOIN_GROUP:
                         joinGroup();
@@ -64,13 +66,15 @@ public class RequestProcessor implements Runnable {
                         break;
                     case CHANGE_PASSWORD:
                         changePassword(request);
-                        break ;
+                        break;
                 }
                 
             }
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println(clientSocket.getLocalAddress() + " exit");
+            ServerCache.onlineUsersMap.remove(curUser.getUid());
+            ServerCache.onlineUserIOCacheMap.remove(curUser.getUid());
+            System.out.println(clientSocket.getInetAddress() + ":" + clientSocket.getPort() +" exit");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             System.out.println("request class not found");
@@ -79,21 +83,21 @@ public class RequestProcessor implements Runnable {
     }
     
     private void changePassword(Request request) {
-        User user = (User)request.getAttribute("user");
+        User user = (User) request.getAttribute("user");
         ServerCache.onlineUsersMap.put(user.getUid(), user);
 //        UserService.
     
     }
     
     private void changeAvatar(Request request) {
-        User user = (User)request.getAttribute("user");
+        User user = (User) request.getAttribute("user");
         ServerCache.onlineUsersMap.put(user.getUid(), user);
-        java.io.File file = new File("./cache/" + user.getUid() + ".png");
+        java.io.File file = new File(user.getAvatarPath());
         try {
             ImageIO.write(user.getAvatar(), "png", file);
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("change user "+user.getUid()+" failed");
+            System.out.println("change user " + user.getUid() + " failed");
         }
     }
     
@@ -101,13 +105,33 @@ public class RequestProcessor implements Runnable {
     
     }
     
-    private void addFriend() {
-    
+    private void addFriend(SocketIO socketIO, Request request) throws IOException {
+        String method = (String) request.getAttribute("method");
+        Request retReq = new Request(ADD_FRIEND);
+        if (method.equals("user_list")) {
+            retReq.setAttribute("method", "user_list");
+            String findKey = (String) request.getAttribute("search");
+            retReq.setAttribute("user_list", UserService.searchUserByKeywords(findKey));
+            sendRequest(socketIO, retReq);
+        } else if (method.equals("add_friend_from")) {//接到发送方发来的添加好友请求
+            retReq.setAttribute("method", "add_friend_to");
+            retReq.setAttribute("from_user", (User) request.getAttribute("from_user"));
+            retReq.setAttribute("to_user", (User) request.getAttribute("to_user"));
+            retReq.setAttribute("time", (long) request.getAttribute("time"));
+            retReq.setAttribute("reason", (String) request.getAttribute("reason"));
+            User to_user = (User) request.getAttribute("to_user");
+            if (ServerCache.onlineUsersMap.containsKey(to_user.getUid())) {
+                SocketIO toSocket = ServerCache.onlineUserIOCacheMap.get(to_user.getUid());
+                sendRequest(toSocket, retReq);
+            } else {
+                //todo save to db
+            }
+        }
+        
     }
     
     /**
      * 想指定用户发送消息，发送方无需等待
-     *
      */
     private void sendMessage(Request request) throws IOException {
         Message msg = (Message) request.getAttribute("message");
@@ -138,6 +162,8 @@ public class RequestProcessor implements Runnable {
         //update online user
         //notice other online user if they are friend
         //change states
+        
+        //todo remove onlineuser onlineio
     }
     
     /**
@@ -156,6 +182,7 @@ public class RequestProcessor implements Runnable {
         Request retReq = new Request(LOGIN);
         retReq.setAttribute("user", getUser);
         if (getUser != null && getUser.getPassword().equals(logUser.getPassword())) {
+            this.curUser = getUser;
             retReq.setAttribute("state", OK);
             ArrayList<User> friendIdList = new FriendService().getFriendListByUid(logUser.getUid());//send friend list
             retReq.setAttribute("friend_list", friendIdList);
@@ -190,6 +217,7 @@ public class RequestProcessor implements Runnable {
         request.setAttribute("user", regUser);
         request.setAttribute("state", OK);
         sendRequest(socketIO, request);
+        //todo set default avatar path
     }
     
     /**
@@ -202,5 +230,6 @@ public class RequestProcessor implements Runnable {
         ObjectOutputStream oos = socketIO.getOos();
         oos.writeObject(request);
         oos.flush();
+        System.out.println("Request send to Client:" + request.getRequestType());
     }
 }

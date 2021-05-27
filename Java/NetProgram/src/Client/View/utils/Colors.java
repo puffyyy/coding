@@ -1,5 +1,7 @@
 package Client.View.utils;
 
+import Client.ClientCache;
+
 import java.awt.*;
 
 public class Colors {
@@ -29,4 +31,11 @@ public class Colors {
     public static Color SELECTED_ITEM_GREY = new Color(202, 199, 198);
     public static Color ROOM_ITEM_GREY = new Color(230, 229, 229);
     public static Color ITEM_FONT_GREY = new Color(153, 153, 153);
+    public static Color[] array = {new Color(75, 123, 143), new Color(214, 208, 148),
+            new Color(190, 179, 145), new Color(175, 113, 118),
+            new Color(203, 194, 213), new Color(222, 218, 223)};
+    
+    public static Color randColor(long id) {
+        return array[(int) (ClientCache.currentUser.getUid() + id) % 6];
+    }
 }

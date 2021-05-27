@@ -2,7 +2,6 @@ package Client.View.LeftFrame;
 
 import Client.View.MainFrame;
 import Client.View.utils.Colors;
-import org.jb2011.lnf.beautyeye.ch9_menu.BEMenuItemUI;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;

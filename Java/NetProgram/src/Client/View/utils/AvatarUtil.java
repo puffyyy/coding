@@ -259,7 +259,7 @@ public class AvatarUtil {
         if (avatar == null) {
             avatar = getCachedImageAvatar(gid, 2);
             if (avatar == null) {
-                System.out.println("创建群组个性头像 : " + gid);
+                System.out.println("create gid avatar " + gid);
                 avatar = createGroupAvatar(gid, members);
             }
             groupAvatarCache.put(gid, avatar);
@@ -282,7 +282,6 @@ public class AvatarUtil {
             int width = 200;
             int height = 200;
             
-            // 创建BufferedImage对象
             // 选择TYPE_INT_ARGB目的在于可创建透明背景的图，否则圆角外的地方会变成黑色
             BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
             

@@ -5,8 +5,8 @@ import Client.View.utils.FontUtil;
 import Client.View.utils.GBC;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class GroupItemPanel extends JPanel {
     public JLabel avatar = new JLabel();
@@ -27,7 +27,7 @@ public class GroupItemPanel extends JPanel {
 //        setPreferredSize(new Dimension(100, 64));
         setBackground(Colors.ROOM_ITEM_GREY);
         setOpaque(true);
-
+        this.setBorder(new EmptyBorder(10, 10, 10, 5));
         roomName.setFont(FontUtil.getDefaultFont(14));
         roomName.setForeground(Colors.FONT_BLACK);
         
@@ -37,7 +37,7 @@ public class GroupItemPanel extends JPanel {
         nameBrief.setLayout(new BorderLayout());
         nameBrief.setOpaque(false);
         nameBrief.add(roomName, BorderLayout.NORTH);
-        nameBrief.add(brief, BorderLayout.CENTER);
+        nameBrief.add(brief, BorderLayout.SOUTH);
         
         time.setForeground(Colors.ITEM_FONT_GREY);
         time.setFont(FontUtil.getDefaultFont(12));
@@ -61,9 +61,9 @@ public class GroupItemPanel extends JPanel {
     
     private void initView() {
         setLayout(new GridBagLayout());
-        add(avatar, new GBC(0, 0).setWeight(2, 1).setFill(GBC.BOTH).setInsets(0, 5, 0, 0));
-        add(nameBrief, new GBC(1, 0).setWeight(100, 1).setFill(GBC.BOTH).setInsets(5, 5, 0, 0));
-        add(timeUnread, new GBC(2, 0).setWeight(1, 1).setFill(GBC.BOTH).setInsets(5, 0, 0, 0));
+        add(avatar, new GBC(0, 0).setWeight(2, 1).setFill(GBC.BOTH).setInsets(0, 5, 0, 5));
+        add(nameBrief, new GBC(1, 0).setWeight(100, 1).setFill(GBC.BOTH).setInsets(0, 5, 0, 0));
+        add(timeUnread, new GBC(2, 0).setWeight(1, 1).setFill(GBC.BOTH).setInsets(0, 0, 0, 0));
     }
     
 }

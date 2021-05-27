@@ -2,7 +2,10 @@ package Client.View.LeftFrame;
 
 import Client.ClientCache;
 import Client.View.MainFrame;
-import Client.View.utils.*;
+import Client.View.utils.AvatarUtil;
+import Client.View.utils.Colors;
+import Client.View.utils.FontUtil;
+import Client.View.utils.GBC;
 import Client.View.utils.component.RCButton;
 import Common.entity.User;
 

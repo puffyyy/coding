@@ -2,7 +2,6 @@ package Common.entity;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.Map;
 
 public class Request implements Serializable {
     private static final long serialVersionUID = -4105920881726156018L;

@@ -1,39 +1,41 @@
 package Client.View.utils.component;
 
+import Client.ClientCache;
+import Client.View.RightFrame.RightPanel;
 import Client.View.utils.Colors;
 import Common.entity.User;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicListUI;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 //image + text
 public class ContractsScrollList extends JScrollPane {
     public JList<User> contentList;
     public DefaultListModel<User> listModel;
-    public ArrayList<User> usersList;
     
-    public ContractsScrollList(ArrayList<User> users) {
+    public ContractsScrollList() {
         this.contentList = new JList<>();
         this.listModel = new DefaultListModel<>();
-        usersList = users;
+        initData();
         initView();
         initComponents();
         addListener();
     }
     
-    private void initComponents() {
-        for (User s : usersList) {
+    private void initData() {
+        for (User s : ClientCache.friendUserList) {
             listModel.addElement(s);
         }
+    }
+    
+    private void initComponents() {
         contentList.setModel(listModel);
         contentList.setCellRenderer(new ImageTextCellRender());
     }
     
     private void initView() {
-        contentList.setFixedCellHeight(50);
+        contentList.setFixedCellHeight(60);
 //        contentList.setUI(new BasicListUI());
         
         setBackground(Colors.WINDOW_BACKGROUND);
@@ -47,8 +49,7 @@ public class ContractsScrollList extends JScrollPane {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 if (e.getClickCount() == 2) {
-                    System.out.println(contentList.getSelectedIndex() + " click 2");
-                    //TODO open new room
+                    RightPanel.getContext().setUser(contentList.getSelectedValue());
                 }
 
 /*
@@ -70,5 +71,11 @@ public class ContractsScrollList extends JScrollPane {
     
     public Integer getSelectIndex() {
         return contentList.getSelectedIndex();
+    }
+    
+    public void refresh() {
+        listModel.clear();
+        initData();
+        contentList.setModel(listModel);
     }
 }

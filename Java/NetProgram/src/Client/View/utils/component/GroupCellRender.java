@@ -23,16 +23,16 @@ public class GroupCellRender<E> extends GroupItemPanel implements ListCellRender
                 if (u.getUid() == ClientCache.currentUser.getUid())
                     u = item.getGroupMember().get(1);
                 icon = new ImageIcon(AvatarUtil.createOrLoadUserAvatar(u)
-                        .getScaledInstance(50, 50, Image.SCALE_SMOOTH));
+                        .getScaledInstance(40, 40, Image.SCALE_SMOOTH));
             } else {
                 icon = new ImageIcon(AvatarUtil.createOrLoadGroupAvatar(item.getRoomId(), item.getGroupMember().toArray(new User[]{}), "d")
-                        .getScaledInstance(50, 50, Image.SCALE_SMOOTH));
+                        .getScaledInstance(40, 40, Image.SCALE_SMOOTH));
             }
             avatar.setIcon(icon);
             roomName.setText(item.getTitle());
             brief.setText(item.getLastText());
-            if (item.getLastText() != null && item.getLastText().length() > 15)
-                brief.setText(item.getLastText().substring(0, 15) + "...");
+            if (item.getLastText() != null && item.getLastText().length() > 18)
+                brief.setText(item.getLastText().substring(0, 18) + "...");
             else
                 brief.setText(item.getLastText());
             

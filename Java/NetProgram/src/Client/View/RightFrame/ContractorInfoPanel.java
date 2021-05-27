@@ -24,6 +24,7 @@ public class ContractorInfoPanel extends ParentAvailablePanel {
     
     private User currUser;
     
+    
     public ContractorInfoPanel(JPanel parent) {
         super(parent);
         initComponents();
@@ -32,33 +33,38 @@ public class ContractorInfoPanel extends ParentAvailablePanel {
     }
     
     private void initComponents() {
-        
+        setBackground(Colors.WINDOW_BACKGROUND);
         contentPanel = new JPanel();
+        contentPanel.setBackground(Colors.WINDOW_BACKGROUND);
         contentPanel.setLayout(new BorderLayout(0, 35));
         imageLabel = new JLabel();
         nameLabel = new JLabel();
-        nameLabel.setPreferredSize(new Dimension(50, 20));
-        nameLabel.setFont(FontUtil.getDefaultFont(20));
+        nameLabel.setPreferredSize(new Dimension(100, 20));
+        nameLabel.setFont(FontUtil.getDefaultFont(25));
+        nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
         phoneLabel = new JLabel();
         phoneLabel.setFont(FontUtil.getDefaultFont(18));
         button = new RCButton("发消息", Colors.MAIN_COLOR, Colors.MAIN_COLOR_DARKER, Colors.MAIN_COLOR_DARKER);
         button.setBackground(Colors.PROGRESS_BAR_START);
         button.setPreferredSize(new Dimension(200, 40));
         button.setFont(FontUtil.getDefaultFont(16));
-        
+        button.setBorder(null);
+        button.setVisible(false);
     }
     
     private void initView() {
         this.setLayout(new GridBagLayout());
         
         JPanel avatarPanel = new JPanel(new GridBagLayout());
+        avatarPanel.setOpaque(false);
+        avatarPanel.add(imageLabel, new GBC(0, 0).setWeight(2, 2).setAnchor(GBC.CENTER).setInsets(10, 0, 50, 0));
+        avatarPanel.add(nameLabel, new GBC(0, 1).setWeight(1, 1).setAnchor(GBC.CENTER));
+//        avatarPanel.add(new JLabel(), new GBC(2, 0).setWeight(10, 10).setAnchor(GBC.CENTER).setInsets(0, 15, 0, 15));
         
-        avatarPanel.add(nameLabel, new GBC(0, 0).setWeight(1, 1).setAnchor(GBC.NORTHEAST).setInsets(0, 15, 0, 50));
-        avatarPanel.add(new JLabel(), new GBC(2, 0).setWeight(10, 10).setAnchor(GBC.CENTER).setInsets(0, 15, 0, 15));
-        avatarPanel.add(imageLabel, new GBC(4, 0).setWeight(2, 2).setAnchor(GBC.WEST).setInsets(0, 15, 0, 15));
         JPanel userPanel = new JPanel();
-        
+        userPanel.setOpaque(false);
         userPanel.add(phoneLabel, BorderLayout.SOUTH);
+        
         contentPanel.add(avatarPanel, BorderLayout.NORTH);
         contentPanel.add(userPanel, BorderLayout.CENTER);
         contentPanel.add(button, BorderLayout.SOUTH);
@@ -72,6 +78,10 @@ public class ContractorInfoPanel extends ParentAvailablePanel {
         ImageIcon icon = new ImageIcon(AvatarUtil.createOrLoadUserAvatar(currUser).getScaledInstance(100, 100, Image.SCALE_SMOOTH));
         imageLabel.setIcon(icon);
         phoneLabel.setText("TEL: " + currUser.getPhoneNum());
+        Color color = Colors.randColor(currUser.getUid());
+        setBackground(color);
+        contentPanel.setBackground(color);
+        button.setVisible(true);
     }
     
     private void setListeners() {

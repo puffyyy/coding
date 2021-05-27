@@ -16,8 +16,6 @@ public class ListPanel extends ParentAvailablePanel {
     public static final String CHAT = "CHAT";
     public static final String CONTACTS = "CONTACTS";
     
-    private String currentTab = CHAT;
-    
     private final CardLayout cardLayout = new CardLayout();
     
     public ListPanel(JPanel parent) {
@@ -30,7 +28,7 @@ public class ListPanel extends ParentAvailablePanel {
     
     private void initComponents() {
         roomsPanel = new GroupScrollList();
-        contactsPanel = new ContractsScrollList(ClientCache.friendUserList);
+        contactsPanel = new ContractsScrollList();
     }
     
     private void initView() {
@@ -43,7 +41,12 @@ public class ListPanel extends ParentAvailablePanel {
     public void showPanel(String who) {
         cardLayout.show(this, who);
     }
-    
+    public void refreshRooms(){
+        roomsPanel.refresh();
+    }
+    public void refreshContracts(){
+        contactsPanel.refresh();
+    }
     public static ListPanel getContext() {
         return context;
     }

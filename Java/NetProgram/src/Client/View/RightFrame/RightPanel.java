@@ -1,6 +1,10 @@
 package Client.View.RightFrame;
 
+import Client.ClientCache;
+import Client.View.entity.GroupItem;
 import Client.View.utils.Colors;
+import Common.entity.Group;
+import Common.entity.User;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -43,8 +47,8 @@ public class RightPanel extends JPanel {
         contentPanel.add(contractorInfoPanel, USER_INFO);
 //        contentPanel.add(chatPanel, MESSAGE);
         
-        this.setBackground(Colors.FONT_WHITE);
-        this.setLayout(new BorderLayout());
+        setBackground(Colors.FONT_WHITE);
+        setLayout(new BorderLayout());
 //        add(titlePanel, BorderLayout.NORTH);
 //        add(roomMembersPanel, BorderLayout.EAST);
         add(contentPanel, BorderLayout.CENTER);
@@ -65,5 +69,23 @@ public class RightPanel extends JPanel {
     
     public static RightPanel getContext() {
         return context;
+    }
+    public void setUser(User u){
+        contractorInfoPanel.setUser(u);
+        showPanel(USER_INFO);
+    }
+    public void setRoom(GroupItem gi){
+        Group group = null;
+        for (Group g : ClientCache.groupList) {
+            if (g.getGid().equals(gi.getRoomId())) {
+                group = g;
+                break;
+            }
+        }
+        if (group != null) {
+            group.getGid();
+        }
+        
+        //todo invoke the chatPanel
     }
 }

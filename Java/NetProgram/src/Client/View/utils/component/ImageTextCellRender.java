@@ -7,10 +7,10 @@ import Client.View.utils.ImageUtil;
 import Common.entity.User;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-
-import static Client.View.utils.AvatarUtil.CUSTOM_AVATAR;
 
 public class ImageTextCellRender extends DefaultListCellRenderer {
     private static final long serialVersionUID = 1L;
@@ -21,12 +21,14 @@ public class ImageTextCellRender extends DefaultListCellRenderer {
         if (value instanceof User) {
             User user = (User) value;
             try {
-                BufferedImage bimg = ImageUtil.toBufferedImage(user.getAvatar().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
+                BufferedImage bimg = ImageUtil.toBufferedImage(user.getAvatar().getScaledInstance(40, 40, Image.SCALE_SMOOTH));
                 setIcon(new ImageIcon(bimg));
+                setBorder(new EmptyBorder(10, 10, 10, 5));
+                this.getInsets(new Insets(10, 0, 10, 0));
                 AvatarUtil.saveUserAvatar(bimg, user.getUid());
                 setBackground(Colors.WINDOW_BACKGROUND);
                 setForeground(Colors.FONT_BLACK);
-                setText(user.getUsername());
+                setText(" "+user.getUsername());
                 setFont(FontUtil.getDefaultFont(15));
                 setHorizontalTextPosition(SwingConstants.RIGHT);//居中
             } catch (Exception e) {

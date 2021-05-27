@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 
 public class RecentMessageRecordDao {
     public static void insertMessage(Object[] arr) {

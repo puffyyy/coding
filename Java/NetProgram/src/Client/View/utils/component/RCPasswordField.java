@@ -4,6 +4,7 @@ import Client.View.utils.Colors;
 import Client.View.utils.FontUtil;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
@@ -15,7 +16,7 @@ public class RCPasswordField extends JPasswordField {
         setBackground(Colors.SCROLL_BAR_THUMB);
         setForeground(Colors.FONT_BLACK);
         setCaretColor(Color.WHITE);
-        setBorder(null);
+        setBorder(new LineBorder(Colors.SCROLL_BAR_THUMB, 5, true));
         
         getDocument().addDocumentListener(new DocumentListener() {
             @Override

@@ -10,7 +10,8 @@
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="lib" level="project" />
-    <orderEntry type="library" name="beautyeye_lnf" level="project" />
-    <orderEntry type="library" name="commons-codec-1.6" level="project" />
+    <orderEntry type="library" exported="" name="beautyeye_lnf" level="project" />
+    <orderEntry type="library" exported="" name="commons-codec-1.6" level="project" />
+    <orderEntry type="library" name="lib (2)" level="project" />
   </component>
 </module>
