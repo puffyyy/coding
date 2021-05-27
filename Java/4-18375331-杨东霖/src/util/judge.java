@@ -35,7 +35,9 @@ public class judge {
     }
     
     public static boolean isPersonPwdLegal(String pwd) {
-        String regex = "(?![^A-Za-z]+$)(?![^0-9]+$)[\\x21-\\x7e]{8,18}";//负向预查 检索不匹配全数字和全字母的串
+        String regex = "^((?=.*[a-zA-Z])(?=.*\\d)[\\x21-\\x7e]{8,18})$";
+        //"^((?!^[A-Za-z]+$)(?!^[0-9]+$)[\\x21-\\x7e]{8,18})$" 不能处理 "--------"
+        
         return pwd.matches(regex);
     }
     

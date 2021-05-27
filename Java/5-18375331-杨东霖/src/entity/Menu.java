@@ -1,0 +1,106 @@
+package entity;
+
+import util.judge;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class Menu {
+    private final HashMap<String, Dish> menuDishMap;
+    private final TreeMap<String, String> menuId2NameMap;
+    private static final Menu instance = new Menu();
+    
+    private Menu() {
+        menuDishMap = new HashMap<>();
+        menuId2NameMap = new TreeMap<>(Dish::dishIDCompareTo);
+    }
+    
+    public static Menu getInstance() {
+        return instance;
+    }
+    
+    public boolean isDishExistById(String did) {
+        return menuDishMap.containsKey(did);
+    }
+    
+    public boolean isRepeatedByName(String name) {
+        if (menuId2NameMap.isEmpty()) return false;
+        return menuId2NameMap.values().stream().anyMatch(name::equals);
+    }
+    
+    public int newDishAdd(Dish dish) {
+        if (judge.isDishAttributeLegal(dish)) {
+            if (!isRepeatedByName(dish.getDishName())) {
+                menuDishMap.put(dish.getDishId(), dish);
+                menuId2NameMap.put(dish.getDishId(), dish.getDishName());
+                return 1;
+            } else return -2;
+        } else return -1;
+    }
+    
+    public int newDishAdd(String did, String name, Double price, Integer total) {
+        Dish dish = new Dish(did, name, price, total);
+        return newDishAdd(dish);
+    }
+    
+    public int updateDish(String did, String name) {// assume id is exist.
+        if (!judge.isDishAttributeLegal(name)) return -1;
+        Dish oldDish = getDishById(did);
+        if (oldDish.getDishName().equals(name) || isRepeatedByName(name)) return -2;
+        oldDish.setDishName(name);
+        menuId2NameMap.replace(did, name);
+        return 1;
+    }
+    
+    public boolean updateDish(String did, Integer total) {
+        if (!judge.isDishAttributeLegal(total)) return false;
+        Dish oldDish = getDishById(did);
+        oldDish.setDishTotalAmount(total);
+        return true;
+    }
+    
+    public boolean updateDish(String did, Double price) {
+        if (!judge.isDishAttributeLegal(price)) return false;
+        Dish oldDish = getDishById(did);
+        oldDish.setDishPrice(price);
+        return true;
+    }
+    
+    public Dish getDishById(String did) {//return exist ? value : null
+        return menuDishMap.get(did);
+    }
+    
+    public Dish getDishByName(String name) {
+        Iterator<Map.Entry<String, Dish>> iter = menuDishMap.entrySet().iterator();
+        Map.Entry<String, Dish> entry;
+        while (iter.hasNext()) {
+            entry = iter.next();
+            if (entry.getValue().getDishName().equals(name)) {
+                return entry.getValue();
+            }
+        }
+        return null;
+    }
+    
+    public ArrayList<Dish> getDishByKeyWord(String keyword) {
+        ArrayList<Dish> dishArr = new ArrayList<>();
+        Iterator<Map.Entry<String, String>> iter = menuId2NameMap.entrySet().iterator();
+        Map.Entry<String, String> entry;
+        while (iter.hasNext()) {
+            entry = iter.next();
+            if (entry.getValue().toLowerCase(Locale.ROOT).contains(keyword.toLowerCase(Locale.ROOT)))
+                dishArr.add(menuDishMap.get(entry.getKey()));
+        }
+        return dishArr;
+    }
+    
+    public String[] idList() {
+        return menuId2NameMap.keySet().toArray(new String[0]);
+    }
+    
+    public ArrayList<Dish> getAllDishList() {
+        String[] idList = idList();
+        if (idList.length <= 0) return new ArrayList<>();
+        return Arrays.stream(idList).map(this::getDishById).collect(Collectors.toCollection(ArrayList::new));
+    }
+}
