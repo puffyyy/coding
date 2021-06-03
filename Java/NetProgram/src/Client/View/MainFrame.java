@@ -1,6 +1,5 @@
 package Client.View;
 
-
 import Client.View.LeftFrame.LeftPanel;
 import Client.View.RightFrame.RightPanel;
 
@@ -10,9 +9,8 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
 public class MainFrame extends JFrame {
-    public static int DEFAULT_WIDTH = 900;
+    public static int DEFAULT_WIDTH = 800;
     public static int DEFAULT_HEIGHT = 650;
-    
     public int currentWindowWidth = DEFAULT_WIDTH;
     public int currentWindowHeight = DEFAULT_HEIGHT;
     
@@ -32,34 +30,22 @@ public class MainFrame extends JFrame {
     }
     
     private void initComponents() {
-        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-
-//        UIManager.put("Label.font", FontUtil.getDefaultFont());
-//        UIManager.put("Panel.font", FontUtil.getDefaultFont());
-//        UIManager.put("TextArea.font", FontUtil.getDefaultFont());
-//        UIManager.put("Panel.background", Colors.WINDOW_BACKGROUND);
-//        UIManager.put("CheckBox.background", Colors.WINDOW_BACKGROUND);
-        
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         leftPanel = new LeftPanel();
         leftPanel.setPreferredSize(new Dimension(260, currentWindowHeight));
         rightPanel = new RightPanel();
-        
+        rightPanel.setPreferredSize(new Dimension(540, currentWindowHeight));
     }
     
     private void initView() {
         setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
         setMinimumSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
-        
-        // 隐藏标题栏
         setUndecorated(true);
-        
-        String windows = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
         try {
-            UIManager.setLookAndFeel(windows);
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
         setListeners();
         
         add(leftPanel, BorderLayout.WEST);

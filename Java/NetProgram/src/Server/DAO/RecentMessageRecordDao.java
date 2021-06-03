@@ -9,7 +9,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * 这是一个类 在数据库层面处理消息记录
+ *
+ * @author Java_Team
+ * @version 1.5
+ */
+
 public class RecentMessageRecordDao {
+    /**
+     * 已弃用
+     *
+     * @deprecated
+     */
     public static void insertMessage(Object[] arr) {
         if (arr.length != 6)
             return;
@@ -28,51 +40,35 @@ public class RecentMessageRecordDao {
             DBUtil.close(statement, con);
         }
     }
-
-    public static ArrayList<Message> groupMessage(Long gid){
-        Connection con =DBUtil.getConn();
+    
+    /**
+     * 查询群聊消息
+     *
+     * @param gid 群id
+     * @return messages 消息列表
+     */
+    public static ArrayList<Message> groupMessage(Long gid) {
+        Connection con = DBUtil.getConn();
         PreparedStatement statement = null;
-        try{
-            statement= con.prepareStatement("select * from message where m_group=? order by m_time desc ");
-            statement.setLong(1,gid);
+        try {
+            statement = con.prepareStatement("select * from message where m_group=? group by m_send_uid,message_text,m_group,m_time order by m_time");
+            statement.setLong(1, gid);
             ResultSet res = statement.executeQuery();
             ArrayList<Message> messages = new ArrayList<>();
-            while(res.next()){
-                Message message =new Message(res.getLong(1),res.getLong(4),gid,res.getLong(6),
-                        res.getString(2),new Date(res.getTimestamp(3).getTime()),res.getInt(7));
+            while (res.next()) {
+                Message message = new Message(res.getLong(1), res.getLong(4),
+                        gid, res.getLong(6), res.getString(2),
+                        new Date(res.getTimestamp(3).getTime()),
+                        res.getInt(7), res.getBoolean(8));
                 messages.add(message);
             }
             return messages;
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-            return null;
-        }
-        finally {
-            DBUtil.close(statement,con);
+            return new ArrayList<>();
+        } finally {
+            DBUtil.close(statement, con);
         }
     }
-
-//    后面改成group message 的map
-//    public static HashMap<Long, Message> getRecentMessage(Long uid){
-//        Connection con = DBUtil.getConn();
-//        PreparedStatement statement = null;
-//        try {
-//            statement = con.prepareStatement("select  message_text, m_time, m_send_uid, m_group, m_type " +
-//                    "from message where message.m_get_uid=? limit 0,20");
-//            HashMap<Long,Message> messageList = new HashMap<Long, Message>();
-//            ResultSet res = statement.executeQuery();
-//            while (res.next()) {
-//                Long from_uid = res.getLong(3);
-//                String mes = res.getString(1);
-//                Date sendDate = new Date(res.getTimestamp(2).getTime());
-//                Long from_gid = res.getLong(4);
-//                int type=res.getInt(5);
-//                Message message = new Message(from_uid,from_gid,uid,mes,sendDate,type);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        } finally {
-//            DBUtil.close(statement, con);
-//        }
-//    }
+    
 }

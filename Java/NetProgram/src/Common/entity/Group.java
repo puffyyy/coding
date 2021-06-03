@@ -3,10 +3,16 @@ package Common.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * 这是一个类 代表群聊实体
+ *
+ * @author Java_Team
+ * @version 1.5
+ */
 public class Group implements Serializable {
     private static final long serialVersionUID = 5453963650970700287L;
-    private Long gid;
-    private String name;
+    public Long gid;
+    public String name;
     private String avatarPath;
     public ArrayList<User> users;
     public ArrayList<Message> messages;
@@ -26,8 +32,21 @@ public class Group implements Serializable {
         this.messages = messages;
     }
     
+    public Group(String name, ArrayList<User> users) {
+        this.name = name;
+        this.users = users;
+        messages = new ArrayList<>();
+    }
+    
     public Group() {
     
+    }
+    
+    public Group(Group g) {
+        this.gid = g.gid;
+        this.name = g.name;
+        this.users = g.users;
+        this.messages = g.messages;
     }
     
     @Override

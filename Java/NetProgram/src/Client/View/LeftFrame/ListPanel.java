@@ -1,14 +1,13 @@
 package Client.View.LeftFrame;
 
-import Client.ClientCache;
+import Client.View.component.ContractsScrollList;
+import Client.View.component.GroupScrollList;
 import Client.View.utils.Colors;
-import Client.View.utils.component.ContractsScrollList;
-import Client.View.utils.component.GroupScrollList;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class ListPanel extends ParentAvailablePanel {
+public class ListPanel extends AvailablePanel {
     private static ListPanel context;
     private GroupScrollList roomsPanel;
     private ContractsScrollList contactsPanel;
@@ -24,6 +23,7 @@ public class ListPanel extends ParentAvailablePanel {
         
         initComponents();
         initView();
+        
     }
     
     private void initComponents() {
@@ -37,16 +37,19 @@ public class ListPanel extends ParentAvailablePanel {
         add(roomsPanel, CHAT);
         add(contactsPanel, CONTACTS);
     }
-
+    
     public void showPanel(String who) {
         cardLayout.show(this, who);
     }
-    public void refreshRooms(){
+    
+    public void refreshRooms() {
         roomsPanel.refresh();
     }
-    public void refreshContracts(){
+    
+    public void refreshContracts() {
         contactsPanel.refresh();
     }
+    
     public static ListPanel getContext() {
         return context;
     }

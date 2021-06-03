@@ -5,26 +5,30 @@ import Common.entity.Group;
 import Common.entity.Message;
 import Common.entity.User;
 
-import java.util.ArrayList;
-
-public class GroupItem implements Comparable<GroupItem> {
-    private Long roomId;
-    private ArrayList<User> groupMember;
+public class GroupItem extends Group implements Comparable<GroupItem> {
+    private static final long serialVersionUID = 6208515677581990400L;
     private String title;
     private String lastText;
     private int unreadCount;
     private long timestamp;
     private String type;
+    private User toUser;
     
     public GroupItem(Group g) {
-        roomId = g.getGid();
-        groupMember = g.getUsers();
+        super(g);
         title = g.getName();
         unreadCount = 0;
-        if (g.getMessages().size() > 0) {
-            Message m = g.getMessages().get(0);
-            if (groupMember.size() == 2) {
+        if (this.getMessages().size() > 0) {
+            Message m = this.getMessages().get(getMessages().size() - 1);
+            if (this.users.size() == 2) {
                 type = "channel";
+                for (User u : users) {
+                    if (u.getUid() != ClientCache.currentUser.getUid()) {
+                        toUser = u;
+                        title = u.getUsername();
+                        break;
+                    }
+                }
                 lastText = m.getContent();
             } else {
                 type = "group";
@@ -32,24 +36,27 @@ public class GroupItem implements Comparable<GroupItem> {
                     lastText = m.getContent();
                 } else {
                     Long from_uid = m.getFromUserId();
-                    String from_name = "user";
-                    from_name = g.users.stream().filter(u -> u.getUid() == from_uid).findFirst().map(User::getUsername).orElse(from_name);
+                    String from_name = "User";
+                    from_name = this.users.stream().filter(u -> u.getUid() == from_uid).findFirst().map(User::getUsername).orElse(from_name);
                     lastText = from_name + ":" + m.getContent();
                 }
             }
             timestamp = m.getSendTime().getTime();
         } else {
+            if (this.users.size() == 2) {
+                type = "channel";
+                for (User u : users) {
+                    if (u.getUid() != ClientCache.currentUser.getUid()) {
+                        toUser = u;
+                        title = u.getUsername();
+                        break;
+                    }
+                }
+            } else
+                type = "group";
             lastText = "";
             timestamp = -1;
         }
-    }
-    
-    public Long getRoomId() {
-        return roomId;
-    }
-    
-    public void setRoomId(Long roomId) {
-        this.roomId = roomId;
     }
     
     public String getTitle() {
@@ -84,23 +91,40 @@ public class GroupItem implements Comparable<GroupItem> {
         this.timestamp = timestamp;
     }
     
-    public ArrayList<User> getGroupMember() {
-        return groupMember;
-    }
-    
-    public void setGroupMember(ArrayList<User> groupMember) {
-        this.groupMember = groupMember;
+    public User searchUserById(Long id) {
+        for (User u : users) {
+            if (u.getUid() == id)
+                return u;
+        }
+        return null;
     }
     
     @Override
     public String toString() {
         return "RoomItem{" +
-                "roomId='" + roomId + '\'' +
+                "roomId='" + gid + '\'' +
                 ", title='" + title + '\'' +
                 ", lastMessage='" + lastText + '\'' +
                 ", unreadCount=" + unreadCount +
                 ", timestamp='" + timestamp + '\'' +
                 '}';
+    }
+    
+    public void updateLastMessage(Message m) {
+        lastText = m.getContent();
+        timestamp = m.getSendTime().getTime();
+        if (type.equals("channel")) {
+            lastText = m.getContent();
+        } else {
+            if (m.getFromUserId() == ClientCache.currentUser.getUid()) {
+                lastText = m.getContent();
+            } else {
+                Long from_uid = m.getFromUserId();
+                String from_name = "User";
+                from_name = this.users.stream().filter(u -> u.getUid() == from_uid).findFirst().map(User::getUsername).orElse(from_name);
+                lastText = from_name + ":" + m.getContent();
+            }
+        }
     }
     
     public String getType() {

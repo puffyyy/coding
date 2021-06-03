@@ -3,12 +3,13 @@ package Client.View.LeftFrame;
 import Client.ClientCache;
 import Client.ClientUtil;
 import Client.View.MainFrame;
+import Client.View.component.AddGroupCellRender;
+import Client.View.component.RCButton;
 import Client.View.utils.Colors;
 import Client.View.utils.FontUtil;
 import Client.View.utils.GBC;
-import Client.View.utils.IconUtil;
-import Client.View.utils.component.RCButton;
-import Client.View.utils.component.UserNameCellRender;
+import Client.View.utils.ImageUtil;
+import Common.entity.Notice;
 import Common.entity.Request;
 import Common.entity.RequestType;
 import Common.entity.User;
@@ -69,7 +70,8 @@ public class AddFriendDialog extends JDialog {
         jList = new JList<>();
         model = new DefaultListModel<>();
         jList.setModel(model);
-        jList.setCellRenderer(new UserNameCellRender());
+        jList.setCellRenderer(new AddGroupCellRender());
+        jList.setFixedCellHeight(50);
         selectUserPanel = new JScrollPane(jList);
         selectUserPanel.setPreferredSize(new Dimension(100, 200));
         
@@ -88,7 +90,7 @@ public class AddFriendDialog extends JDialog {
         editorPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 40, 10));
         editorPanel.add(searchUserField);
         editorPanel.add(searchButton);
-        buttonPanel.add(noSuchUserLabel,new GBC(0,0).setWeight(1, 1));
+        buttonPanel.add(noSuchUserLabel, new GBC(0, 0).setWeight(1, 1));
         buttonPanel.add(cancelButton, new GBC(1, 0).setWeight(1, 1).setInsets(15, 20, 0, 0));
         buttonPanel.add(okButton, new GBC(2, 0).setWeight(1, 1));
         
@@ -133,6 +135,13 @@ public class AddFriendDialog extends JDialog {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (okButton.isEnabled() && jList.getSelectedIndex() >= 0) {
+                    User selected = jList.getSelectedValue();
+                    for (User u : ClientCache.friendUserList) {
+                        if (u.getUid() == selected.getUid()) {
+                            JOptionPane.showMessageDialog(MainFrame.getContext(), "您与" + u.getUsername() + "已经成为好友", "好友申请", JOptionPane.INFORMATION_MESSAGE);
+                            return;
+                        }
+                    }
                     String reason = (String) JOptionPane.showInputDialog(AddFriendDialog.content,
                             "请输入申请理由",
                             "好友申请",
@@ -142,13 +151,12 @@ public class AddFriendDialog extends JDialog {
                             "我是");
                     if (reason == null) return;
                     okButton.setEnabled(false);
-                    User selected = jList.getSelectedValue();
+                    
                     Request request = new Request(RequestType.ADD_FRIEND);
+                    Notice noc = new Notice(ClientCache.currentUser.getUid(), selected.getUid(), new Date(), reason, 0);
                     request.setAttribute("method", "add_friend_from");
-                    request.setAttribute("from_user", ClientCache.currentUser);
-                    request.setAttribute("to_user", selected);
-                    request.setAttribute("time", new Date().getTime());
-                    request.setAttribute("reason", reason);
+                    request.setAttribute("notice", noc);
+                    request.setAttribute("from", ClientCache.currentUser);
                     JOptionPane.showMessageDialog(MainFrame.getContext(), "已发送好友请求,等待对方同意", "好友申请", JOptionPane.INFORMATION_MESSAGE);
                     okButton.setEnabled(true);
                     try {
@@ -166,7 +174,7 @@ public class AddFriendDialog extends JDialog {
     
     public void showErrorMessage() {
         noSuchUserLabel.setText("用户" + searchUserField.getText().trim() + "不存在");
-        noSuchUserLabel.setIcon(new ImageIcon(IconUtil.getIcon(this, "/image/fail.png").getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH)));
+        noSuchUserLabel.setIcon(ImageUtil.getIcon(this, "/image/fail.png", 15, 15));
         noSuchUserLabel.setVisible(true);
     }
     

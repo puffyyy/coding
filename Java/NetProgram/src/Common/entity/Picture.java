@@ -7,6 +7,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+/**
+ * 这是一个类 代表图片实体
+ *
+ * @author Java_Team
+ * @version 1.5
+ */
 public class Picture implements Serializable {
     
     transient BufferedImage img;

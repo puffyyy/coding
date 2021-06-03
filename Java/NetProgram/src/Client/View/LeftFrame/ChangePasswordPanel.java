@@ -3,12 +3,12 @@ package Client.View.LeftFrame;
 import Client.ClientCache;
 import Client.ClientUtil;
 import Client.View.MainFrame;
+import Client.View.component.RCButton;
+import Client.View.component.RCPasswordField;
+import Client.View.component.VerticalFlowLayout;
 import Client.View.utils.Colors;
 import Client.View.utils.FontUtil;
-import Client.View.utils.IconUtil;
-import Client.View.utils.component.RCButton;
-import Client.View.utils.component.RCPasswordField;
-import Client.View.utils.component.VerticalFlowLayout;
+import Client.View.utils.ImageUtil;
 import Common.entity.Request;
 import Common.entity.RequestType;
 
@@ -114,11 +114,10 @@ public class ChangePasswordPanel extends JPanel {
             
             statusLabel.setVisible(false);
             okButton.setEnabled(false);
-            okButton.setIcon(IconUtil.getIcon(this, "/image/sending.gif"));
+            okButton.setIcon(ImageUtil.getIcon(this, "/image/sending.gif", -1, -1));
             okButton.setText("修改中...");
             JOptionPane.showMessageDialog(MainFrame.getContext(), "修改密码成功", "修改密码", JOptionPane.INFORMATION_MESSAGE);
             ClientCache.currentUser.setPassword(password);
-            // TODO : request send to server
             Request request = new Request(RequestType.CHANGE_PASSWORD);
             request.setAttribute("user", ClientCache.currentUser);
             try {
@@ -140,13 +139,13 @@ public class ChangePasswordPanel extends JPanel {
     
     public void showSuccessMessage() {
         statusLabel.setText("密码修改成功");
-        statusLabel.setIcon(IconUtil.getIcon(this, "/image/check.png"));
+        statusLabel.setIcon(ImageUtil.getIcon(this, "/image/check.png", -1, -1));
         statusLabel.setVisible(true);
     }
     
     public void showErrorMessage(String message) {
         statusLabel.setText(message);
-        statusLabel.setIcon(new ImageIcon(IconUtil.getIcon(this, "/image/fail.png").getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH)));
+        statusLabel.setIcon(ImageUtil.getIcon(this, "/image/fail.png", 15, 15));
         statusLabel.setVisible(true);
     }
     

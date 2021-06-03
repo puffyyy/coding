@@ -1,21 +1,30 @@
 package Server;
 
-import Server.Controller.RequestProcessor;
+import Server.DAO.DBUtil;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Properties;
+
+/**
+ * 这是一个服务器启动的方法类
+ *
+ * @author Java_Team
+ * @version 1.5
+ */
 
 public class ServerSetup {
-    private static final int PORT = 5500;
+    private static int PORT;
     
     public static void main(String[] args) {
         try {
+            initServerProperties();
             ServerCache.serverSocket = new ServerSocket(PORT);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
         try {
             while (true) {
                 // 监听客户端的连接
@@ -30,6 +39,19 @@ public class ServerSetup {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+    }
+    
+    public static void initServerProperties() {
+        Properties pro = new Properties();
+        InputStream in = ServerSetup.class.getClassLoader().getResourceAsStream("server.properties");
+        try {
+            pro.load(in);
+            ServerSetup.PORT = Integer.parseInt(pro.getProperty("PORT"));
+            DBUtil.db_name = pro.getProperty("DBNAME");
+            DBUtil.db_pass = pro.getProperty("DBPASS");
+            DBUtil.db_user = pro.getProperty("DBUSER");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

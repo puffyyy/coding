@@ -1,13 +1,17 @@
 package Client.View.LeftFrame;
 
 import Client.ClientCache;
+import Client.ClientUtil;
 import Client.View.MainFrame;
+import Client.View.component.AddGroupCellRender;
+import Client.View.component.RCButton;
 import Client.View.utils.Colors;
 import Client.View.utils.FontUtil;
 import Client.View.utils.GBC;
-import Client.View.utils.component.RCButton;
+import Common.entity.Group;
+import Common.entity.Request;
+import Common.entity.RequestType;
 import Common.entity.User;
-import org.jb2011.lnf.beautyeye.ch19_list.MyDefaultListCellRenderer;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -16,6 +20,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,15 +30,15 @@ public class CreateGroupDialog extends JDialog {
     private JLabel editor;
     private JPanel editorPanel;
     private JTextField groupNameTextField;
-    
+    private JScrollPane jScrollPane;
     private JList<User> selectUserPanel;
     private JPanel buttonPanel;
     private JButton cancelButton;
     private JButton okButton;
     private List<User> userList = new ArrayList<>();
     
-    public static final int DIALOG_WIDTH = 580;
-    public static final int DIALOG_HEIGHT = 500;
+    public static final int DIALOG_WIDTH = 300;
+    public static final int DIALOG_HEIGHT = 400;
     
     public CreateGroupDialog(Frame owner, boolean modal) {
         super(owner, modal);
@@ -75,7 +80,8 @@ public class CreateGroupDialog extends JDialog {
             model.addElement(u);
         }
         selectUserPanel.setModel(model);
-        selectUserPanel.setCellRenderer(new MyDefaultListCellRenderer());
+        selectUserPanel.setFixedCellHeight(40);
+        selectUserPanel.setCellRenderer(new AddGroupCellRender());
         selectUserPanel.setSelectionModel(new DefaultListSelectionModel() {
             private static final long serialVersionUID = -4951881422184570829L;
             
@@ -89,7 +95,7 @@ public class CreateGroupDialog extends JDialog {
             }
         });
         selectUserPanel.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        
+        jScrollPane = new JScrollPane(selectUserPanel);
         // 按钮组
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
@@ -111,7 +117,7 @@ public class CreateGroupDialog extends JDialog {
         buttonPanel.add(okButton, new GBC(1, 0).setWeight(1, 1));
         
         add(editorPanel, BorderLayout.NORTH);
-        add(selectUserPanel, BorderLayout.CENTER);
+        add(jScrollPane, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
     }
     
@@ -138,10 +144,20 @@ public class CreateGroupDialog extends JDialog {
                         okButton.setEnabled(true);
                         return;
                     }
-//                    selectUserPanel.getSelectedValuesList();
-//                    checkRoomExists(roomName);
+                    
+                    Group group = new Group(roomName, new ArrayList<>(selectUserPanel.getSelectedValuesList()));
+                    group.getUsers().add(ClientCache.currentUser);
+                    Request request = new Request(RequestType.JOIN_GROUP);
+                    request.setAttribute("group", group);
+                    request.setAttribute("from", ClientCache.currentUser);
+                    try {
+                        ClientUtil.sendRequest(request);
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+//                    ClientCache.groupList.add(new GroupItem(group));
+//                    ListPanel.getContext().refreshRooms();
                 }
-                
                 super.mouseClicked(e);
             }
         });

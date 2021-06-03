@@ -3,18 +3,15 @@ package Common.entity;
 import java.io.Serializable;
 import java.util.HashMap;
 
+/**
+ * 这是一个类 代表客户端请求实体
+ *
+ * @author Java_Team
+ * @version 1.5
+ */
 public class Request implements Serializable {
     private static final long serialVersionUID = -4105920881726156018L;
     private final RequestType requestType;
-//    private boolean requestNeedRespond = true;
-    /**
-     * map
-     * <p>
-     * user : User
-     * message : Message
-     * <p>
-     * //response_state : ok/bad
-     */
     private final HashMap<String, Object> dataMap;
     
     public Request(RequestType requestType) {
@@ -37,12 +34,4 @@ public class Request implements Serializable {
     public Object getAttribute(String name) {
         return this.dataMap.get(name);
     }
-    
-//    public boolean isRequestNeedRespond() {
-//        return requestNeedRespond;
-//    }
-//
-//    public void setRequestNeedRespond(boolean requestNeedRespond) {
-//        this.requestNeedRespond = requestNeedRespond;
-//    }
 }

@@ -77,11 +77,16 @@ public class AvatarUtil {
         String username = user.getUsername();
         avatar = userAvatarCache.get(uid);
         if (avatar == null) {
-            avatar = getCachedImageAvatar(uid, CUSTOM_AVATAR);
-            if (avatar == null) {
-                avatar = createAvatar(username, uid);
+            if (user.getPicture() == null) {
+                avatar = getCachedImageAvatar(uid, CUSTOM_AVATAR);
+                if (avatar == null) {
+                    avatar = createAvatar(username, uid);
+                }
+                userAvatarCache.put(uid, avatar);
+            } else {
+                userAvatarCache.put(uid, user.getAvatar());
+                return user.getAvatar();
             }
-            userAvatarCache.put(uid, avatar);
         }
         
         return avatar;

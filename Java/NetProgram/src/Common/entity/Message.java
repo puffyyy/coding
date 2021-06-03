@@ -3,8 +3,16 @@ package Common.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * 这是一个,代表消息实体
+ *
+ * @author Java_Team
+ * @version 1.5
+ */
 public class Message implements Serializable {
     private static final long serialVersionUID = -3754166292635335848L;
+    
+    private boolean isRead;
     private Long messageId;
     private Long fromUserId;
     private Long groupId;
@@ -13,7 +21,18 @@ public class Message implements Serializable {
     private Date sendTime;
     private int type;
     
-    public Message(Long messageId, Long fromUserId, Long groupId, Long toUserId, String content, Date sendTime, int type) {
+    public Message() {
+    }
+    
+    public Message(Long fromUserId, Long groupId, String content, Date sendTime, int type) {
+        this.fromUserId = fromUserId;
+        this.groupId = groupId;
+        this.content = content;
+        this.sendTime = sendTime;
+        this.type = type;
+    }
+    
+    public Message(Long messageId, Long fromUserId, Long groupId, Long toUserId, String content, Date sendTime, int type, boolean isRead) {
         this.messageId = messageId;
         this.fromUserId = fromUserId;
         this.groupId = groupId;
@@ -21,6 +40,7 @@ public class Message implements Serializable {
         this.content = content;
         this.sendTime = sendTime;
         this.type = type;
+        this.isRead = isRead;
     }
     
     public Long getMessageId() {
@@ -45,9 +65,6 @@ public class Message implements Serializable {
     
     public void setType(int type) {
         this.type = type;
-    }
-    
-    public Message() {
     }
     
     public Long getFromUserId() {
@@ -81,6 +98,15 @@ public class Message implements Serializable {
     public void setSendTime(Date sendTime) {
         this.sendTime = sendTime;
     }
+    
+    public boolean isRead() {
+        return isRead;
+    }
+    
+    public void setRead(boolean read) {
+        isRead = read;
+    }
+    
     @Override
     public String toString() {
         return "Message{" +

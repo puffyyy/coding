@@ -3,6 +3,12 @@ package Common.entity;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
+/**
+ * 这是一个类 代表用户实体
+ *
+ * @author Java_Team
+ * @version 1.5
+ */
 public class User implements Serializable {
     
     private static final long serialVersionUID = -2597817861630142303L;
@@ -14,7 +20,7 @@ public class User implements Serializable {
     private String avatarPath;
     private Picture avatar;
     
-    public User(Long uid,  String username, String password,char sex, String phoneNum, String avatarPath) {
+    public User(Long uid, String username, String password, char sex, String phoneNum, String avatarPath) {
         this.uid = uid;
         this.password = password;
         this.username = username;
@@ -31,13 +37,10 @@ public class User implements Serializable {
         this.password = password;
     }
     
-    /*
-        register
-    */
-    public User(String username, String password, char sex) {
+    public User(String username, String password, String phoneNum) {
         this.username = username;
         this.password = password;
-        this.sex = sex;
+        this.phoneNum = phoneNum;
     }
     
     /*
@@ -88,6 +91,10 @@ public class User implements Serializable {
     
     public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
+    }
+    
+    public Picture getPicture() {
+        return avatar;
     }
     
     public String getAvatarPath() {

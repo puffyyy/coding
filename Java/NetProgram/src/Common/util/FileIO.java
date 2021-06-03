@@ -7,6 +7,13 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+/**
+ * 这是一个类 文件IO类
+ *
+ * @author Java_Team
+ * @version 1.5
+ * @deprecated
+ */
 public class FileIO {
     public static void saveDataToFile(byte[] data, String path) {
         try {
@@ -33,9 +40,10 @@ public class FileIO {
         }
         return new byte[0];
     }
+    
     public static byte[] readDataFromImage(BufferedImage img) {
         try {
-            ByteArrayOutputStream  output = new ByteArrayOutputStream();
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
             ImageIO.write(img, "png", output);
             return output.toByteArray();
         } catch (IOException e) {

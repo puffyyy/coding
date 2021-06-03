@@ -1,18 +1,22 @@
 package Client.View.LeftFrame;
 
 import Client.ClientCache;
+import Client.ClientUtil;
 import Client.View.MainFrame;
+import Client.View.component.RCButton;
 import Client.View.utils.AvatarUtil;
 import Client.View.utils.Colors;
 import Client.View.utils.FontUtil;
 import Client.View.utils.GBC;
-import Client.View.utils.component.RCButton;
+import Common.entity.Request;
+import Common.entity.RequestType;
 import Common.entity.User;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 public class MePanel extends JPanel {
     private JPanel contentPanel;
@@ -57,7 +61,7 @@ public class MePanel extends JPanel {
         usernamePanel.add(nameLabel);
         
         contentPanel.add(avatarNamePanel, BorderLayout.NORTH);
-        contentPanel.add(usernamePanel,BorderLayout.CENTER);
+        contentPanel.add(usernamePanel, BorderLayout.CENTER);
         contentPanel.add(button, BorderLayout.SOUTH);
         
         add(contentPanel, new GBC(0, 0).setWeight(1, 1).setAnchor(GBC.CENTER).setInsets(0, 0, 200, 0));//250
@@ -69,7 +73,13 @@ public class MePanel extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 int ret = JOptionPane.showConfirmDialog(MainFrame.getContext(), "确认退出登录？", "确认退出", JOptionPane.YES_NO_OPTION);
                 if (ret == JOptionPane.YES_OPTION) {
-                    // TODO: send quit request
+                    Request req = new Request(RequestType.LOGOUT);
+                    req.setAttribute("user", ClientCache.currentUser);
+                    try {
+                        ClientUtil.sendRequest(req);
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
                     MainFrame.getContext().dispose();
                     System.exit(0);
                 }
@@ -83,12 +93,12 @@ public class MePanel extends JPanel {
         JFrame jf = new JFrame();
         JPanel avatarNamePanel = new JPanel();
         JLabel imageLabel = new JLabel();
-        imageLabel.setSize(100,100);
+        imageLabel.setSize(100, 100);
         imageLabel.setText("asdfadf");
         JLabel nameLabel = new JLabel("asd");
         JPanel name = new JPanel();
-        nameLabel.setSize(50,20);
-        name .add(nameLabel);
+        nameLabel.setSize(50, 20);
+        name.add(nameLabel);
         avatarNamePanel.setLayout(new BorderLayout(15, 0));
         avatarNamePanel.add(imageLabel, BorderLayout.NORTH);
         avatarNamePanel.add(name, BorderLayout.CENTER);
