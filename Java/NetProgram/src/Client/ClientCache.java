@@ -25,7 +25,7 @@ public class ClientCache {
     public static int PORT;
     
     static {
-        IP = "localhost";//10.128.77.116
+        IP = "10.128.77.116";//10.128.77.116
         PORT = 5500;
     }
     

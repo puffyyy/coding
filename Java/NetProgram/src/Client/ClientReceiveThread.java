@@ -110,7 +110,7 @@ public class ClientReceiveThread extends Thread {
             groupItem.messages.add(message);
             groupItem.updateLastMessage(message);
             ListPanel.getContext().refreshRooms();
-            if (RightPanel.getContext().getRoom().equals(groupItem))
+            if (groupItem.equals(RightPanel.getContext().getRoom()))
                 RightPanel.getContext().setRoom(groupItem);
             
         }

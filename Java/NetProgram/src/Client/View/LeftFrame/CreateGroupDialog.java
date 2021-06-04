@@ -144,6 +144,11 @@ public class CreateGroupDialog extends JDialog {
                         okButton.setEnabled(true);
                         return;
                     }
+                    if (selectUserPanel.getSelectedValuesList().size() < 2) {
+                        JOptionPane.showMessageDialog(null, "请至少选择两个好友", "请至少选择两个好友建立群聊", JOptionPane.WARNING_MESSAGE);
+                        okButton.setEnabled(true);
+                        return;
+                    }
                     
                     Group group = new Group(roomName, new ArrayList<>(selectUserPanel.getSelectedValuesList()));
                     group.getUsers().add(ClientCache.currentUser);
@@ -155,8 +160,6 @@ public class CreateGroupDialog extends JDialog {
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
                     }
-//                    ClientCache.groupList.add(new GroupItem(group));
-//                    ListPanel.getContext().refreshRooms();
                 }
                 super.mouseClicked(e);
             }
@@ -169,57 +172,9 @@ public class CreateGroupDialog extends JDialog {
             }
         });
     }
-
-//    private void checkRoomExists(String name)
-//    {
-//        if (roomService.findByName(name) != null)
-//        {
-//            showRoomExistMessage(name);
-//            okButton.setEnabled(true);
-//        }
-//        else
-//        {
-//            List<SelectUserData> list = selectUserPanel.getSelectedUser();
-//            String[] usernames = new String[list.size()];
-//
-//            for (int i = 0; i < list.size(); i++)
-//            {
-//                usernames[i] = list.get(i).getName();
-//            }
-//
-//            createChannelOrGroup(name, privateCheckBox.isSelected(), usernames);
-//        }
-//    }
-    
-    /**
-     * 创建Channel或Group
-     *
-     * @param name
-     * @param privateGroup
-     * @param usernames
-     */
-    private void createChannelOrGroup(String name, boolean privateGroup, String[] usernames) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
-        for (int i = 0; i < usernames.length; i++) {
-            sb.append("\"" + usernames[i] + "\"");
-            if (i < usernames.length - 1) {
-                sb.append(",");
-            }
-        }
-        sb.append("]");
-        
-        JOptionPane.showMessageDialog(MainFrame.getContext(), "创建群聊", "创建群聊", JOptionPane.INFORMATION_MESSAGE);
-    }
     
     public static CreateGroupDialog getContext() {
         return context;
-    }
-    
-    public void showRoomExistMessage(String roomName) {
-        JOptionPane.showMessageDialog(null, "群组\"" + roomName + "\"已存在", "群组已存在", JOptionPane.WARNING_MESSAGE);
-        groupNameTextField.setText("");
-        groupNameTextField.requestFocus();
     }
     
 }
