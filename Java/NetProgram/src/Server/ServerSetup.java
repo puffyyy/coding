@@ -2,6 +2,7 @@ package Server;
 
 import Server.DAO.DBUtil;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
@@ -22,6 +23,11 @@ public class ServerSetup {
         try {
             initServerProperties();
             ServerCache.serverSocket = new ServerSocket(PORT);
+            File file = new File("./cache");
+//            System.out.println(file.getAbsolutePath());
+            if (!file.exists()) {
+                file.mkdirs();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -123,7 +123,13 @@ public class UserService {
      * @return groups 会话窗口
      */
     public static ArrayList<Group> initGroupList(Long uid) {
-        return UserDao.initialGroup(uid);
+        ArrayList<Group> arr =  UserDao.initialGroup(uid);
+        if (arr != null) {
+            for (Group g : arr){
+                addAvatarList(g.getUsers());
+            }
+        }
+        return arr;
     }
 }
 

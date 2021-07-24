@@ -35,7 +35,10 @@ public class LoginFrame {
     private JButton register;
     private JCheckBox autologin;
     private JCheckBox remember;
-    
+
+    /**
+     * 展示登录界面
+     */
     public void showFrame() {
         ImageIcon image = new ImageIcon(getClass().getResource("/image/bgr.png"));// 背景图片
         JLabel label = new JLabel(image);
@@ -56,7 +59,10 @@ public class LoginFrame {
         preDate();
 //        MainLoginFrame.pack();
     }
-    
+
+    /**
+     * 上次输入的数据保留
+     */
     public void preDate() {
         Properties pro = new Properties();
         try {
@@ -79,7 +85,12 @@ public class LoginFrame {
             e.printStackTrace();
         }
     }
-    
+
+    /**
+     * 新输入账号密码
+     * @param key 关键字标识，区分ID或密码
+     * @param val 关键字输入的具体字符串
+     */
     public void writeDate(String key, String val) {
         Properties pps = new Properties();
         try {
@@ -95,7 +106,10 @@ public class LoginFrame {
         }
         
     }
-    
+
+    /**
+     * 复选框设定
+     */
     public void checkboxSave() {
         if (autologin.isSelected())
             writeDate("uid", username.getText());
@@ -107,7 +121,10 @@ public class LoginFrame {
             writeDate("pwd", "");
         
     }
-    
+
+    /**
+     * 初始化登录界面
+     */
     public void initLogin() {
         MainLoginFrame = new JFrame();
         user = new JLabel("账号 ");
@@ -203,7 +220,10 @@ public class LoginFrame {
         MainLoginFrame.add(upp);
         showFrame();
     }
-    
+
+    /**
+     * 登录界面构造方法，包括界面初始化和相关信息预加载
+     */
     public LoginFrame() {
         System.setProperty("sun.java2d.noddraw", "true");//translucencyAppleLike
         BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.osLookAndFeelDecorated;//generalNoTranslucencyShadow
@@ -218,7 +238,10 @@ public class LoginFrame {
         initLogin();
         System.out.println("Client login frame start");
     }
-    
+
+    /**
+     * 设置登录按钮以及相关动作
+     */
     public void LoginButtonFunction() {
         String uid = String.valueOf(username.getText()).trim();
         String pwd = String.valueOf(password.getPassword()).trim();

@@ -1,6 +1,13 @@
 
 #Folder
+lib
+Lib
+cache
+include
+Include
 
+
+.idea
 # Prerequisites
 *.d
 

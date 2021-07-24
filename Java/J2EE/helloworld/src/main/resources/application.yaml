@@ -1,0 +1,14 @@
+server:
+  port: 8024
+spring:
+#  mvc:
+#    static-path-pattern: /res/**
+  web:
+    resources:
+      static-locations: [classpath:/myf/]
+  redis:
+    host: localhost
+    port: 6379
+  mvc:
+    contentnegotiation:
+      favor-parameter: true

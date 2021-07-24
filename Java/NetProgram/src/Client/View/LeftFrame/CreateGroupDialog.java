@@ -4,7 +4,7 @@ import Client.ClientCache;
 import Client.ClientUtil;
 import Client.View.MainFrame;
 import Client.View.component.AddGroupCellRender;
-import Client.View.component.RCButton;
+import Client.View.component.MyScrollBarUI;
 import Client.View.utils.Colors;
 import Client.View.utils.FontUtil;
 import Client.View.utils.GBC;
@@ -39,7 +39,12 @@ public class CreateGroupDialog extends JDialog {
     
     public static final int DIALOG_WIDTH = 300;
     public static final int DIALOG_HEIGHT = 400;
-    
+
+    /**
+     * 创建群组会话构造方法
+     * @param owner 拥有者（登录用户）
+     * @param modal 布尔值，代表添加模式
+     */
     public CreateGroupDialog(Frame owner, boolean modal) {
         super(owner, modal);
         context = this;
@@ -49,11 +54,17 @@ public class CreateGroupDialog extends JDialog {
         initView();
         setListeners();
     }
-    
+
+    /**
+     * 初始化群组数据
+     */
     private void initData() {
         userList = ClientCache.friendUserList;
     }
-    
+
+    /**
+     * 初始化子组件
+     */
     private void initComponents() {
         int posX = MainFrame.getContext().getX();
         int posY = MainFrame.getContext().getY();
@@ -100,13 +111,16 @@ public class CreateGroupDialog extends JDialog {
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
         
-        cancelButton = new RCButton("取消");
+        cancelButton = new MyScrollBarUI.MyButton("取消");
         cancelButton.setForeground(Colors.FONT_BLACK);
         
-        okButton = new RCButton("创建", Colors.MAIN_COLOR, Colors.MAIN_COLOR_DARKER, Colors.MAIN_COLOR_DARKER);
+        okButton = new MyScrollBarUI.MyButton("创建", Colors.MAIN_COLOR, Colors.MAIN_COLOR_DARKER, Colors.MAIN_COLOR_DARKER);
         okButton.setBackground(Colors.PROGRESS_BAR_START);
     }
-    
+
+    /**
+     * 初始化新建群组视图
+     */
     private void initView() {
         editorPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
         editorPanel.add(editor);
@@ -120,7 +134,10 @@ public class CreateGroupDialog extends JDialog {
         add(jScrollPane, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
     }
-    
+
+    /**
+     * 在创建群组的操作中添加监听器
+     */
     private void setListeners() {
         cancelButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -149,7 +166,6 @@ public class CreateGroupDialog extends JDialog {
                         okButton.setEnabled(true);
                         return;
                     }
-                    
                     Group group = new Group(roomName, new ArrayList<>(selectUserPanel.getSelectedValuesList()));
                     group.getUsers().add(ClientCache.currentUser);
                     Request request = new Request(RequestType.JOIN_GROUP);
@@ -176,5 +192,6 @@ public class CreateGroupDialog extends JDialog {
     public static CreateGroupDialog getContext() {
         return context;
     }
+    
     
 }
